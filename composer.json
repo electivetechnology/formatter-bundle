@@ -1,0 +1,31 @@
+{
+    "name": "elective/formatter-bundle",
+    "type": "symfony-bundle",
+    "description": "Elective Formatter Bundle",
+    "keywords": ["elective", "symfony", "formatter", "api"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kris Rybak",
+            "email": "kris@electivegroup.com"
+        },
+        {
+            "name": "Chris Dixon",
+            "email": "chris@electivegroup.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1.3",
+        "doctrine/orm": "^2.6",
+        "symfony/dependency-injection": "^4.1",
+        "symfony/http-kernel": "^4.1",
+        "symfony/config": "^4.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5"
+    },
+    "autoload": {
+        "psr-4": { "Elective\\FormatterBundle\\": "" }
+    },
+    "minimum-stability": "dev"
+}
