@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Elective\FormatterBundle\Parsers;
+namespace Elective\FormatterBundle\Parsers;
 
 /**
- * App\Elective\FormatterBundle\Parsers\ParserInterface
+ * Elective\FormatterBundle\Parsers\ParserInterface
  *
  * @author Kris Rybak <kris@electivegroup.com>
  */
 interface ParserInterface
 {
     /**
-     * Returns defult mimeType for this parser
+     * Returns default mimeType for this parser
      * @return string
      */
     public static function getDefaultMimeType():string;
