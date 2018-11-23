@@ -1,5 +1,5 @@
 {
-    "name": "elective/formatter-bundle",
+    "name": "electivegroup/formatter-bundle",
     "type": "symfony-bundle",
     "description": "Elective Formatter Bundle",
     "keywords": ["elective", "symfony", "formatter", "api"],
