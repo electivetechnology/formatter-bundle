@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Elective\FormatterBundle\Request\Handler
+ *
  * @author Kris Rybak <kris.rybak@krisrybak.com>
  */
 class Handler implements HandlerInterface

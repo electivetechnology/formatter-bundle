@@ -7,6 +7,11 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Config\FileLocator;
 
+/**
+ * Elective\FormatterBundle\DependencyInjection\ElectiveFormatterExtension
+ *
+ * @author Kris Rybak <kris.rybak@krisrybak.com>
+ */
 class ElectiveFormatterExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
