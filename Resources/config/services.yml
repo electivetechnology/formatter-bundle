@@ -1,12 +1,12 @@
 services:
   elective_formatter_bundle.response.formatter:
     class: Elective\FormatterBundle\Response\Formatter
-      arguments:
-        $requestStack: '@request_stack'
-        $parsers: { application/json: '@elective_formatter_bundle.parsers.json' }
-        $cache: '@Symfony\Component\Cache\Adapter\TagAwareAdapter'
-      calls:
-        - [ 'setHeaders', ['%elective_formatter.response.formatter.headers%']]
+    arguments:
+      $requestStack: '@request_stack'
+      $parsers: { application/json: '@elective_formatter_bundle.parsers.json' }
+      $cache: '@Symfony\Component\Cache\Adapter\TagAwareAdapter'
+    calls:
+      - [ 'setHeaders', [ '%elective_formatter.response.formatter.headers%' ]]
 
   Elective\FormatterBundle\Response\FormatterInterface: '@elective_formatter_bundle.response.formatter'
 
