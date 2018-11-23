@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Elective\FormatterBundle\DependencyInjection;
+namespace Elective\FormatterBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
