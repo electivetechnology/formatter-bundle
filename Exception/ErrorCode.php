@@ -18,6 +18,7 @@ class ErrorCode
     const USER_TOKEN_MALFORMED          = 4030001;
     const USER_TOKEN_INVALID            = 4030002;
     const PASSWORD_RESET_LIMIT_EXCEEDED = 4290001;
+    const PASSWORD_TOKEN_INVALID        = 4040031;
 
     public static $errorTexts = array(
         4010001 => 'Invalid Credentials',
@@ -26,6 +27,7 @@ class ErrorCode
         4030002 => 'Invalid user token. User token is not valid',
         4040001 => 'User not found. Supplied username or email address is invalid',
         4040021 => 'No primary email has been defined for the user',
+        4040031 => 'Password token is not valid',
         4290001 => 'API rate limit exceeded for this call',
     );
 
