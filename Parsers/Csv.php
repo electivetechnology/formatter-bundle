@@ -77,11 +77,15 @@ class Csv implements ParserInterface
         fclose($out);
     }
 
-    public static function parseRow($row)
+    public static function parseRow($row, $prefix = null)
     {
         $ret = array();
 
         foreach ($row as $key => $value) {
+            if ($prefix) {
+                $key = $prefix . '.' . $key;
+            }
+
             if (is_string($value) || is_integer($value)) {
                 $ret[$key] = $value;
             }
@@ -98,6 +102,11 @@ class Csv implements ParserInterface
 
             if ($value instanceof \DateTimeInterface) {
                 $ret[$key] = $value->format('Y-m-d H:i:s');
+            } elseif (is_object($value)) {
+                $obj = self::parseRow($value, $key);
+                foreach ($obj as $propKey => $prop) {
+                    $ret[$propKey] = $prop;
+                }
             }
         }
 
