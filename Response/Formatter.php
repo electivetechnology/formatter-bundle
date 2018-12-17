@@ -36,14 +36,14 @@ class Formatter implements FormatterInterface
     /**
      * @var ParserInterface
      */
-    private $defautParser;
+    private $defaultParser;
 
     public function __construct(RequestStack $requestStack = null, $parsers = array(), TagAwareAdapter $cache = null)
     {
         $this->requestStack         = $requestStack;
         $this->headers              = array();
         $this->parsers              = $parsers;
-        $this->defautParser         = new JsonParser;
+        $this->defaultParser        = new JsonParser;
     }
 
     /**
@@ -228,7 +228,7 @@ class Formatter implements FormatterInterface
      */
     public function setDefaultParser(ParserInterface $parser)
     {
-        $this->defautParser = $parser;
+        $this->defaultParser = $parser;
 
         return $this;
     }
@@ -240,6 +240,6 @@ class Formatter implements FormatterInterface
      */
     public function getDefaultParser()
     {
-        return $this->defautParser;
+        return $this->defaultParser;
     }
 }
