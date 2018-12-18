@@ -31,7 +31,8 @@ class Handler implements HandlerInterface
     const   FORMAT_BODY_FORM_DATA       = 'multipart/form-data',
             FORMAT_BODY_URLENCODED      = 'application/x-www-form-urlencoded',
             FORMAT_BODY_RAW_JSON        = 'application/json',
-            FORMAT_BODY_RAW_TEXT        = 'text/plain';
+            FORMAT_BODY_RAW_TEXT        = 'text/plain',
+            FORMAT_BODY_RAW_CSV         = 'text/csv';
 
     /**
      * Array of supported request body formats
@@ -43,6 +44,7 @@ class Handler implements HandlerInterface
         self::FORMAT_BODY_URLENCODED,
         self::FORMAT_BODY_RAW_JSON,
         self::FORMAT_BODY_RAW_TEXT,
+        self::FORMAT_BODY_RAW_CSV,
     );
 
     /**
@@ -55,6 +57,7 @@ class Handler implements HandlerInterface
         'application/x-www-form-urlencoded' => self::FORMAT_BODY_URLENCODED,
         'application/json'                  => self::FORMAT_BODY_RAW_JSON,
         'text/plain'                        => self::FORMAT_BODY_RAW_TEXT,
+        'text/csv'                          => self::FORMAT_BODY_RAW_CSV,
     );
 
     /**
