@@ -83,7 +83,7 @@ class Handler implements HandlerInterface
         return $this->defaultFormat;
     }
 
-    public function getPostData(): object
+    public function getPostData(): \StdClass
     {
         $format     = $this->getRequestedFormat();
         $request    = $this->requestStack->getMasterRequest();

@@ -61,7 +61,7 @@ class HandlerTest extends TestCase
      */
     public function testGetPostData($requestHandler, $expectedData)
     {
-        $this->assertEquals($requestHandler->getPostData(), $expectedData);
+        $this->assertEquals($expectedData, $requestHandler->getPostData());
     }
 
     public function getPostDataProvider()
