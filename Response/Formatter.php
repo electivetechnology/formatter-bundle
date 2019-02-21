@@ -7,7 +7,6 @@ use Elective\FormatterBundle\Parsers\ParserInterface;
 use Elective\FormatterBundle\Parsers\Json as JsonParser;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Cache\Adapter\TagAwareAdapter;
 
 /**
  * Elective\FormatterBundle\Response\Formatter
@@ -38,7 +37,7 @@ class Formatter implements FormatterInterface
      */
     private $defaultParser;
 
-    public function __construct(RequestStack $requestStack = null, $parsers = array(), TagAwareAdapter $cache = null)
+    public function __construct(RequestStack $requestStack = null, $parsers = array())
     {
         $this->requestStack         = $requestStack;
         $this->headers              = array();

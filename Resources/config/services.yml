@@ -4,7 +4,6 @@ services:
     arguments:
       $requestStack: '@request_stack'
       $parsers: { application/json: '@elective_formatter_bundle.parsers.json' }
-      $cache: '@Symfony\Component\Cache\Adapter\TagAwareAdapter'
     calls:
       - [ 'setHeaders', [ '%elective_formatter.response.formatter.headers%' ]]
 
