@@ -2,7 +2,7 @@
 
 namespace Elective\FormatterBundle\Cache\Triats;
 
-use Symfony\Contracts\Cache\TagAwareCacheInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 
 /**
  * Elective\FormatterBundle\Cache\Triats\Cacheable
@@ -13,26 +13,26 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
 trait Cacheable
 {
     /**
-     * @var TagAwareAdapterInterface
+     * @var CacheInterface
      */
     private $cacheAdapter;
 
     /**
-     * Get Cache
+     * Get CacheAdapter
      *
-     * @return TagAwareAdapterInterface
+     * @return CacheInterface
      */
-    public function getCacheAdapter()
+    public function getCacheAdapter(): CacheInterface
     {
         return $this->cacheAdapter;
     }
 
     /**
-     * Get Cache
+     * Get CacheAdapter
      *
-     * @return TagAwareAdapterInterface
+     * @return self
      */
-    public function setCacheAdapter($cacheAdapter)
+    public function setCacheAdapter(CacheInterface $cacheAdapter)
     {
         $this->cacheAdapter = $cacheAdapter;
 
