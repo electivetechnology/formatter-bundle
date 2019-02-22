@@ -52,7 +52,7 @@ class OutputableTest extends TestCase
         $handler = new \StdClass;
         $testClass = new OutputableExample();
 
-        $this->assertInstanceOf(OutputableExample::class, $testClass->setFormatter($handler));
+        $this->assertInstanceOf(OutputableExample::class, $testClass->setHandler($handler));
     }
 }
 
