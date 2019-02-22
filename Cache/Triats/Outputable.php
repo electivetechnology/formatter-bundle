@@ -4,6 +4,7 @@ namespace Elective\FormatterBundle\Cache\Triats;
 
 use Elective\FormatterBundle\Response\FormatterInterface;
 use Elective\FormatterBundle\Request\HandlerInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Elective\FormatterBundle\Cache\Triats\Outputable
@@ -77,5 +78,18 @@ trait Outputable
     protected function getPostData(): \StdClass
     {
         return $this->handler->getPostData();
+    }
+
+    /**
+     * Sends data out to consumer
+     *
+     * @param $data     mixed
+     * @param $status   int
+     * @param $headers  array
+     * @return Response
+     */
+    protected function output($data, $status = null, $headers = []): Response
+    {
+        return $this->formatter->render($data, $status, $headers);
     }
 }
