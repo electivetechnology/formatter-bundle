@@ -26,7 +26,7 @@ trait Outputable
     /**
      * SetFormatter
      *
-     * @parm $formatter FormatterInterface
+     * @param $formatter FormatterInterface
      * @return self
      */
     public function setFormatter(FormatterInterface $formatter)
