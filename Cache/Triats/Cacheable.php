@@ -95,5 +95,7 @@ trait Cacheable
             // Save item
             $this->cacheAdapter->save($item);
         }
+
+        return $this;
     }
 }

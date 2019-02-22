@@ -19,6 +19,9 @@ class Adapter implements CacheInterface{
 class Item {
     public function isHit(): bool {}
     public function get() {}
+    public function set() {}
+    public function expiresAfter() {}
+    public function tag() {}
 }
 
 /**
@@ -72,5 +75,15 @@ class CacheableTest extends TestCase
         $aa = new A;
         $this->assertInstanceOf(A::class, $aa->setCacheAdapter($adapter));
         $this->assertEquals($data, $aa->getCacheItem("key"));
+    }
+
+    public function testSetCacheItem() {
+        // Configure the stub.
+        $adapter = $this->createMock(Adapter::class);
+        $adapter->method('getItem')
+             ->willReturn(true);
+
+        $a = new A;
+        $this->assertInstanceOf(A::class, $a->setCacheAdapter($adapter));
     }
 }
