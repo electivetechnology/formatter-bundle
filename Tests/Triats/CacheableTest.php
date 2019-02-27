@@ -1,8 +1,8 @@
 <?php
 
-namespace Elective\FormatterBundle\Tests\Cache\Triats;
+namespace Elective\FormatterBundle\Tests\Triats;
 
-use Elective\FormatterBundle\Cache\Triats\Cacheable;
+use Elective\FormatterBundle\Triats\Cacheable;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Cache\CacheInterface;
 

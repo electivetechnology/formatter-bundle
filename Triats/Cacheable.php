@@ -1,11 +1,11 @@
 <?php
 
-namespace Elective\FormatterBundle\Cache\Triats;
+namespace Elective\FormatterBundle\Triats;
 
 use Symfony\Contracts\Cache\CacheInterface;
 
 /**
- * Elective\FormatterBundle\Cache\Triats\Cacheable
+ * Elective\FormatterBundle\Triats\Cacheable
  *
  * @author Kris Rybak <kris.rybak@krisrybak.com>
  */

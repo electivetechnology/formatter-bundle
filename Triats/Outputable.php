@@ -1,13 +1,13 @@
 <?php
 
-namespace Elective\FormatterBundle\Cache\Triats;
+namespace Elective\FormatterBundle\Triats;
 
 use Elective\FormatterBundle\Response\FormatterInterface;
 use Elective\FormatterBundle\Request\HandlerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Elective\FormatterBundle\Cache\Triats\Outputable
+ * Elective\FormatterBundle\Triats\Outputable
  *
  * @author Kris Rybak <kris.rybak@krisrybak.com>
  */
