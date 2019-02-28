@@ -32,7 +32,7 @@ abstract class AbstractModel
     {
         $this->manager      = $manager;
         $this->dispatcher   = $dispatcher;
-        $this->request      = $requestStack;
+        $this->requestStack = $requestStack;
     }
 
     /**
