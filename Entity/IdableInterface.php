@@ -9,5 +9,10 @@ namespace Elective\FormatterBundle\Entity;
  */
 interface IdableInterface
 {
+    /**
+     * Gets object id
+     *
+     * @return mixed
+     */
     public function getId();
 }

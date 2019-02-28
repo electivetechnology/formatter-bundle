@@ -3,7 +3,10 @@
 namespace Elective\FormatterBundle\Triats;
 
 use Elective\FormatterBundle\Model\ModelInterface;
+use Elective\FormatterBundle\Entity\IdableInterface;
 use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Elective\FormatterBundle\Triats\Cacheable
@@ -99,8 +102,34 @@ trait Cacheable
         return $this;
     }
 
-    public function getModelCacheKey(ModelInterface $model, $item)
+    /**
+     * Gets Cache key for given Model
+     *
+     * @param $model    ModelInterface
+     * @param $item     IdableInterface
+     * @param $user     UserInterface
+     * @param $request  Request
+     * @return string
+     */
+    public static function getModelCacheKey(ModelInterface $model, IdableInterface $item = null, UserInterface $user = null, Request $request = null): string
     {
+        $key = $model->getName();
 
+        // Add item if exist
+        if ($item) {
+            $key = $key . $item->getId();
+        }
+
+        // Add username if exists
+        if ($user) {
+            $key = $key . $user->getUsername();
+        }
+
+        // Add request details if exists
+        if ($request) {
+            $key = $key . serialize($request->query->all());
+        }
+
+        return md5($key);
     }
 }
