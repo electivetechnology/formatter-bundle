@@ -2,6 +2,7 @@
 
 namespace Elective\FormatterBundle\Triats;
 
+use Elective\FormatterBundle\Model\ModelInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 
 /**
@@ -9,7 +10,6 @@ use Symfony\Contracts\Cache\CacheInterface;
  *
  * @author Kris Rybak <kris.rybak@krisrybak.com>
  */
-
 trait Cacheable
 {
     /**
@@ -97,5 +97,10 @@ trait Cacheable
         }
 
         return $this;
+    }
+
+    public function getModelCacheKey(ModelInterface $model, $item)
+    {
+
     }
 }

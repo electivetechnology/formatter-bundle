@@ -2,6 +2,7 @@
 
 namespace Elective\FormatterBundle\Model;
 
+use Elective\FormatterBundle\Model\ModelInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -11,7 +12,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  *
  * @author Kris Rybak <kris.rybak@electivegroup.com>
  */
-abstract class AbstractModel
+abstract class AbstractModel implements ModelInterface
 {
     /**
      * @var EntityManagerInterface

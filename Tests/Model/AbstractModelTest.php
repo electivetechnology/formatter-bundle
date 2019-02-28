@@ -70,4 +70,8 @@ class AbstractModelTest extends TestCase
     }
 }
 
-class A extends AbstractModel{}
+class A extends AbstractModel{
+    public function getName(): string {
+        return 'a';
+    }
+}
