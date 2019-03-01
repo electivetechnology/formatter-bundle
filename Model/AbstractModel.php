@@ -3,6 +3,7 @@
 namespace Elective\FormatterBundle\Model;
 
 use Elective\FormatterBundle\Model\ModelInterface;
+use Elective\FormatterBundle\Entity\IdableInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -103,5 +104,27 @@ abstract class AbstractModel implements ModelInterface
         $this->requestStack = $requestStack;
 
         return $this;
+    }
+
+    /**
+     * Get Tag
+     *
+     * @param $item mixed
+     * @return self
+     */
+    public function getTag($item = null): string
+    {
+        $tag = $this->getName();
+
+        // Add item if exist
+        if ($item) {
+            if ($item instanceof IdableInterface) {
+                $tag = $tag . $item->getId();
+            } elseif (is_string($item) || is_numeric($item)){
+                $tag = $tag . $item;
+            }
+        }
+
+        return $tag;
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Elective\FormatterBundle\Tests\Triats;
+namespace Elective\FormatterBundle\Tests\Traits;
 
-use Elective\FormatterBundle\Triats\Cacheable;
+use Elective\FormatterBundle\Traits\Cacheable;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Cache\CacheInterface;
 use Elective\FormatterBundle\Model\ModelInterface;
@@ -12,20 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 class A {
-    use Cacheable;
-}
-
-class B implements ModelInterface{
-    public function __construct($name = '')
-    {
-        $this->name = $name;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
     use Cacheable;
 }
 
@@ -44,7 +30,7 @@ class Item {
 }
 
 /**
- * Elective\FormatterBundle\Tests\Cache\Triats\CacheabletTest
+ * Elective\FormatterBundle\Tests\Cache\Traits\CacheabletTest
  *
  * @author Kris Rybak <kris@electivegroup.com>
  */
@@ -177,33 +163,5 @@ class CacheableTest extends TestCase
         $a = new A;
         $this->assertInstanceOf(A::class, $a->setDefaultLifetime($ttl));
         $this->assertSame($ttl, $a->getDefaultLifetime());
-    }
-
-    public function cacheTagsProvider()
-    {
-        $data = array();
-        $item = $this->createMock(IdableInterface::class);
-        $item->method('getId')->willReturn('123');
-
-        $model = new B('label');
-        $data[] = array($model, $item, 'label123');
-
-        $model = new B('object');
-        $data[] = array($model, $item, 'object123');
-        $data[] = array($model, 123, 'object123');
-        $data[] = array($model, '123', 'object123');
-
-        $data[] = array($model, [1,2,3], 'object');
-        $data[] = array($model, new \StdClass, 'object');
-
-        return $data;
-    }
-
-    /**
-     * @dataProvider cacheTagsProvider
-     */
-    public function testGetModelCacheTag($model, $item, $expectedTag)
-    {
-        $this->assertSame($expectedTag, $model->getModelCacheTag($item));
     }
 }

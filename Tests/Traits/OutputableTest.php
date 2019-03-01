@@ -1,15 +1,15 @@
 <?php
 
-namespace Elective\FormatterBundle\Tests\Triats;
+namespace Elective\FormatterBundle\Tests\Traits;
 
-use Elective\FormatterBundle\Triats\Outputable;
+use Elective\FormatterBundle\Traits\Outputable;
 use Elective\FormatterBundle\Response\FormatterInterface;
 use Elective\FormatterBundle\Request\HandlerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Elective\FormatterBundle\Tests\Triats\OutputableTest
+ * Elective\FormatterBundle\Tests\Traits\OutputableTest
  *
  * @author Kris Rybak <kris@electivegroup.com>
  */

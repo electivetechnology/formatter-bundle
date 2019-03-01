@@ -3,6 +3,7 @@
 namespace Elective\FormatterBundle\Tests\Model;
 
 use Elective\FormatterBundle\Model\AbstractModel;
+use Elective\FormatterBundle\Entity\IdableInterface;
 use PHPUnit\Framework\TestCase;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -15,6 +16,17 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  */
 class AbstractModelTest extends TestCase
 {
+    protected $model;
+
+    protected function setUp(): void
+    {
+        $manager = $this->createMock(EntityManagerInterface::class);
+        $dispatcher = $this->createMock(EventDispatcherInterface::class);
+        $requestStack = $this->createMock(RequestStack::class);
+
+        $this->model = new A($manager, $dispatcher, $requestStack);
+    }
+
     public function testConstructor()
     {
         $manager = $this->createMock(EntityManagerInterface::class);
@@ -68,10 +80,46 @@ class AbstractModelTest extends TestCase
         $this->assertInstanceOf(AbstractModel::class, $model->setRequestStack($newRequestStack));
         $this->assertSame($newRequestStack, $model->getRequestStack());
     }
+
+    public function tagDataProvider()
+    {
+        $data = array();
+        $item = $this->createMock(IdableInterface::class);
+        $item->method('getId')->willReturn('123');
+
+        $data[] = array('label', $item, 'label123');
+        $data[] = array('foo', $item, 'foo123');
+        $data[] = array('foo', 123, 'foo123');
+        $data[] = array('foo', "123", 'foo123');
+
+        $data[] = array(123, $item, '123123');
+        $data[] = array(123, 123, '123123');
+
+        $data[] = array('foo', [], 'foo');
+        $data[] = array('foo', [1,2,3], 'foo');
+
+        return $data;
+    }
+
+    /**
+     * @dataProvider tagDataProvider
+     */
+    public function testGetTag($name, $item, $expectedTag)
+    {
+        $this->model->setName($name);
+        $this->assertSame($expectedTag, $this->model->getTag($item));
+    }
 }
 
 class A extends AbstractModel{
+    private $name = 'a';
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
     public function getName(): string {
-        return 'a';
+        return $this->name;
     }
 }

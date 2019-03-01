@@ -19,4 +19,11 @@ interface ModelInterface
      * @return string
      */
     public function getName(): string;
+
+    /**
+     * Gets tag of the model item
+     *
+     * @return string
+     */
+    public function getTag($item = null): string;
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Elective\FormatterBundle\Triats;
+namespace Elective\FormatterBundle\Traits;
 
 use Elective\FormatterBundle\Model\ModelInterface;
 use Elective\FormatterBundle\Entity\IdableInterface;
@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Elective\FormatterBundle\Triats\Cacheable
+ * Elective\FormatterBundle\Traits\Cacheable
  *
  * @author Kris Rybak <kris.rybak@krisrybak.com>
  */
@@ -164,31 +164,5 @@ trait Cacheable
         }
 
         return md5($key);
-    }
-
-    /**
-     * Gets Cache tag for a given model item
-     *
-     * @param $item mixed
-     * @return string
-     */
-    public function getModelCacheTag($item = null): string
-    {
-        $tag = '';
-
-        if ($this instanceof ModelInterface) {
-            $tag = $tag . $this->getName();
-        }
-
-        // Add item if exist
-        if ($item) {
-            if ($item instanceof IdableInterface) {
-                $tag = $tag . $item->getId();
-            } elseif (is_string($item) || is_numeric($item)){
-                $tag = $tag . $item;
-            }
-        }
-
-        return $tag;
     }
 }
