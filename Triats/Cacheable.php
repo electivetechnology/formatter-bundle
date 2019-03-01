@@ -31,13 +31,40 @@ trait Cacheable
     }
 
     /**
-     * Get CacheAdapter
+     * Set CacheAdapter
      *
      * @return self
      */
     public function setCacheAdapter(CacheInterface $cacheAdapter)
     {
         $this->cacheAdapter = $cacheAdapter;
+
+        return $this;
+    }
+    
+    /**
+     * @var int
+     */
+    private $defaultLifetime = 0;
+
+    /**
+     * Get Default Lifetime
+     *
+     * @return int
+     */
+    public function getDefaultLifetime(): int
+    {
+        return $this->defaultLifetime;
+    }
+
+    /**
+     * Set Default Lifetime
+     *
+     * @return self
+     */
+    public function setDefaultLifetime(int $defaultLifetime)
+    {
+        $this->defaultLifetime = $defaultLifetime;
 
         return $this;
     }

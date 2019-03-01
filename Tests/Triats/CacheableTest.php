@@ -146,4 +146,22 @@ class CacheableTest extends TestCase
         $a = new A;
         $this->assertSame($expectedKey, $a->getModelCacheKey($model, $item, $user, $request));
     }
+
+    public function defaultLifetimeProvider()
+    {
+        return array(
+            array(5),
+            array(50),
+        );
+    }
+
+    /**
+     * @dataProvider defaultLifetimeProvider
+     */
+    public function testDefaultLifetime($ttl)
+    {
+        $a = new A;
+        $this->assertInstanceOf(A::class, $a->setDefaultLifetime($ttl));
+        $this->assertSame($ttl, $a->getDefaultLifetime());
+    }
 }
