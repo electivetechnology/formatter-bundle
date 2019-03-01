@@ -15,6 +15,20 @@ class A {
     use Cacheable;
 }
 
+class B implements ModelInterface{
+    public function __construct($name = '')
+    {
+        $this->name = $name;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    use Cacheable;
+}
+
 class Adapter implements CacheInterface{
     public function get(string $key, callable $callback, float $beta = null, array &$metadata = null){}
     public function delete(string $key): bool {}
@@ -163,5 +177,33 @@ class CacheableTest extends TestCase
         $a = new A;
         $this->assertInstanceOf(A::class, $a->setDefaultLifetime($ttl));
         $this->assertSame($ttl, $a->getDefaultLifetime());
+    }
+
+    public function cacheTagsProvider()
+    {
+        $data = array();
+        $item = $this->createMock(IdableInterface::class);
+        $item->method('getId')->willReturn('123');
+
+        $model = new B('label');
+        $data[] = array($model, $item, 'label123');
+
+        $model = new B('object');
+        $data[] = array($model, $item, 'object123');
+        $data[] = array($model, 123, 'object123');
+        $data[] = array($model, '123', 'object123');
+
+        $data[] = array($model, [1,2,3], 'object');
+        $data[] = array($model, new \StdClass, 'object');
+
+        return $data;
+    }
+
+    /**
+     * @dataProvider cacheTagsProvider
+     */
+    public function testGetModelCacheTag($model, $item, $expectedTag)
+    {
+        $this->assertSame($expectedTag, $model->getModelCacheTag($item));
     }
 }

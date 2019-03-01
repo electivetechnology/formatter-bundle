@@ -133,7 +133,7 @@ trait Cacheable
      * Gets Cache key for given Model
      *
      * @param $model    ModelInterface
-     * @param $item     IdableInterface
+     * @param $item     mixed
      * @param $user     UserInterface
      * @param $request  Request
      * @return string
@@ -164,5 +164,31 @@ trait Cacheable
         }
 
         return md5($key);
+    }
+
+    /**
+     * Gets Cache tag for a given model item
+     *
+     * @param $item mixed
+     * @return string
+     */
+    public function getModelCacheTag($item = null): string
+    {
+        $tag = '';
+
+        if ($this instanceof ModelInterface) {
+            $tag = $tag . $this->getName();
+        }
+
+        // Add item if exist
+        if ($item) {
+            if ($item instanceof IdableInterface) {
+                $tag = $tag . $item->getId();
+            } elseif (is_string($item) || is_numeric($item)){
+                $tag = $tag . $item;
+            }
+        }
+
+        return $tag;
     }
 }
