@@ -97,35 +97,39 @@ class CacheableTest extends TestCase
 
     public function modelCacheKeyProvider()
     {
+        $item = $this->createMock(IdableInterface::class);
+        $item->method('getId')->willReturn('123');
+
         return array(
+            array('object', $item, null, null, 'cf9b9fa54b89a683743bcd1eb81b4683'),
             array('object', '123', null, null, 'cf9b9fa54b89a683743bcd1eb81b4683'),
-            array('object', '123', 'jane.doe', null, '30b1e28233b6d10ebaa3cb54886def34'),
+            array('object', 123, null, null, 'cf9b9fa54b89a683743bcd1eb81b4683'),
+            array('object', $item, 'jane.doe', null, '30b1e28233b6d10ebaa3cb54886def34'),
             array('object', null, 'jane.doe', null, '809d826bc56fc4cdfb126a6ffc2837e9'),
-            array('object', 'abc', 'jane.doe', array(
+            array('object', [], 'jane.doe', null, '809d826bc56fc4cdfb126a6ffc2837e9'),
+            array('object', new \StdClass, 'jane.doe', null, '809d826bc56fc4cdfb126a6ffc2837e9'),
+            array('object', [1,2,3], 'jane.doe', null, '3978667c6e4e3260aedd488dd33e4859'),
+            array('object', json_decode('[1,2,3]'), 'jane.doe', null, '3978667c6e4e3260aedd488dd33e4859'),
+            array('object', json_decode('{"foo":"bar"}'), 'jane.doe', null, '809d826bc56fc4cdfb126a6ffc2837e9'),
+            array('object', $item, 'jane.doe', array(
                 "filters" => array("a-b-c", "d-e-f")
-            ), 'd216dd2a0f4603d9682dd357ea9f1c41'),
-            array('object', 'abc', null, array(
+            ), '9dd16733c5b4090a3fc6a3e8da58ac64'),
+            array('object', $item, null, array(
                 "filters" => array("a-b-c", "d-e-f")
-            ), '3e1f31222c951ccf35328b391ec066cb'),
+            ), '6b8cbe3fe01a3a0c1456958f9c9a1a68'),
         );
     }
 
     /**
      * @dataProvider modelCacheKeyProvider
      */
-    public function testGetModelCacheKey($modelName, $itemId = null, $username = null, $queryArray = null, $expectedKey)
+    public function testGetModelCacheKey($modelName, $item = null, $username = null, $queryArray = null, $expectedKey)
     {
-        $item       = null;
         $user       = null;
         $request    = null;
 
         $model = $this->createMock(ModelInterface::class);
         $model->method('getName')->willReturn($modelName);
-
-        if ($itemId) {
-            $item = $this->createMock(IdableInterface::class);
-            $item->method('getId')->willReturn($itemId);
-        }
 
         if ($username) {
             $user = $this->createMock(UserInterface::class);

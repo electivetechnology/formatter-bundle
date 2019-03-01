@@ -111,13 +111,19 @@ trait Cacheable
      * @param $request  Request
      * @return string
      */
-    public static function getModelCacheKey(ModelInterface $model, IdableInterface $item = null, UserInterface $user = null, Request $request = null): string
+    public static function getModelCacheKey(ModelInterface $model, $item = null, UserInterface $user = null, Request $request = null): string
     {
         $key = $model->getName();
 
         // Add item if exist
         if ($item) {
-            $key = $key . $item->getId();
+            if ($item instanceof IdableInterface) {
+                $key = $key . $item->getId();
+            } elseif (is_string($item) || is_numeric($item)){
+                $key = $key . $item;
+            } elseif (is_array($item)) {
+                $key = $key . serialize($item);
+            }
         }
 
         // Add username if exists
