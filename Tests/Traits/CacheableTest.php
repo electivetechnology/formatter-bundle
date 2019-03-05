@@ -101,20 +101,20 @@ class CacheableTest extends TestCase
         $item->method('getId')->willReturn('123');
 
         return array(
-            array('object', $item, null, null, 'cf9b9fa54b89a683743bcd1eb81b4683'),
-            array('object', '123', null, null, 'cf9b9fa54b89a683743bcd1eb81b4683'),
-            array('object', 123, null, null, 'cf9b9fa54b89a683743bcd1eb81b4683'),
-            array('object', $item, 'jane.doe', null, '30b1e28233b6d10ebaa3cb54886def34'),
-            array('object', null, 'jane.doe', null, '809d826bc56fc4cdfb126a6ffc2837e9'),
-            array('object', [], 'jane.doe', null, '809d826bc56fc4cdfb126a6ffc2837e9'),
-            array('object', new \StdClass, 'jane.doe', null, '809d826bc56fc4cdfb126a6ffc2837e9'),
-            array('object', [1,2,3], 'jane.doe', null, '3978667c6e4e3260aedd488dd33e4859'),
-            array('object', json_decode('[1,2,3]'), 'jane.doe', null, '3978667c6e4e3260aedd488dd33e4859'),
-            array('object', json_decode('{"foo":"bar"}'), 'jane.doe', null, '809d826bc56fc4cdfb126a6ffc2837e9'),
-            array('object', $item, 'jane.doe', array(
+            array($item, null, null, 'cf9b9fa54b89a683743bcd1eb81b4683'),
+            array('123', null, null, 'cf9b9fa54b89a683743bcd1eb81b4683'),
+            array(123, null, null, 'cf9b9fa54b89a683743bcd1eb81b4683'),
+            array($item, 'jane.doe', null, '30b1e28233b6d10ebaa3cb54886def34'),
+            array(null, 'jane.doe', null, '809d826bc56fc4cdfb126a6ffc2837e9'),
+            array([], 'jane.doe', null, '809d826bc56fc4cdfb126a6ffc2837e9'),
+            array(new \StdClass, 'jane.doe', null, '809d826bc56fc4cdfb126a6ffc2837e9'),
+            array([1,2,3], 'jane.doe', null, '3978667c6e4e3260aedd488dd33e4859'),
+            array(json_decode('[1,2,3]'), 'jane.doe', null, '3978667c6e4e3260aedd488dd33e4859'),
+            array(json_decode('{"foo":"bar"}'), 'jane.doe', null, '809d826bc56fc4cdfb126a6ffc2837e9'),
+            array($item, 'jane.doe', array(
                 "filters" => array("a-b-c", "d-e-f")
             ), '9dd16733c5b4090a3fc6a3e8da58ac64'),
-            array('object', $item, null, array(
+            array($item, null, array(
                 "filters" => array("a-b-c", "d-e-f")
             ), '6b8cbe3fe01a3a0c1456958f9c9a1a68'),
         );
@@ -123,13 +123,14 @@ class CacheableTest extends TestCase
     /**
      * @dataProvider modelCacheKeyProvider
      */
-    public function testGetModelCacheKey($modelName, $item = null, $username = null, $queryArray = null, $expectedKey)
+    public function testGetModelCacheKey($item = null, $username = null, $queryArray = null, $expectedKey)
     {
         $user       = null;
         $request    = null;
 
-        $model = $this->createMock(ModelInterface::class);
-        $model->method('getName')->willReturn($modelName);
+        $model = new SimpleModel;
+        //$model = $this->createMock(ModelInterface::class);
+        //$model->method('getName')->willReturn($modelName);
 
         if ($username) {
             $user = $this->createMock(UserInterface::class);
@@ -163,5 +164,18 @@ class CacheableTest extends TestCase
         $a = new A;
         $this->assertInstanceOf(A::class, $a->setDefaultLifetime($ttl));
         $this->assertSame($ttl, $a->getDefaultLifetime());
+    }
+}
+
+class SimpleModel implements ModelInterface
+{
+    public static function getName(): string
+    {
+        return 'object';
+    }
+
+    public function getTag($item = null): string
+    {
+        return '';
     }
 }

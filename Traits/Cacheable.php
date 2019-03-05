@@ -140,7 +140,7 @@ trait Cacheable
      */
     public static function getModelCacheKey(ModelInterface $model, $item = null, UserInterface $user = null, Request $request = null): string
     {
-        $key = $model->getName();
+        $key = $model::getName();
 
         // Add item if exist
         if ($item) {

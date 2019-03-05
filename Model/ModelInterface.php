@@ -18,7 +18,7 @@ interface ModelInterface
      *
      * @return string
      */
-    public function getName(): string;
+    public static function getName(): string;
 
     /**
      * Gets tag of the model item

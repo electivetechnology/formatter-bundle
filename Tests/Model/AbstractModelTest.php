@@ -87,16 +87,16 @@ class AbstractModelTest extends TestCase
         $item = $this->createMock(IdableInterface::class);
         $item->method('getId')->willReturn('123');
 
-        $data[] = array('label', $item, 'label123');
-        $data[] = array('foo', $item, 'foo123');
-        $data[] = array('foo', 123, 'foo123');
-        $data[] = array('foo', "123", 'foo123');
+        $data[] = array($item, 'foo123');
+        $data[] = array($item, 'foo123');
+        $data[] = array(123, 'foo123');
+        $data[] = array("123", 'foo123');
 
-        $data[] = array(123, $item, '123123');
-        $data[] = array(123, 123, '123123');
+        $data[] = array($item, 'foo123');
+        $data[] = array(123, 'foo123');
 
-        $data[] = array('foo', [], 'foo');
-        $data[] = array('foo', [1,2,3], 'foo');
+        $data[] = array([], 'foo');
+        $data[] = array([1,2,3], 'foo');
 
         return $data;
     }
@@ -104,22 +104,14 @@ class AbstractModelTest extends TestCase
     /**
      * @dataProvider tagDataProvider
      */
-    public function testGetTag($name, $item, $expectedTag)
+    public function testGetTag($item, $expectedTag)
     {
-        $this->model->setName($name);
-        $this->assertSame($expectedTag, $this->model->getTag($item));
+         $this->assertSame($expectedTag, $this->model->getTag($item));
     }
 }
 
 class A extends AbstractModel{
-    private $name = 'a';
-
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    public function getName(): string {
-        return $this->name;
+    public static function getName(): string {
+        return 'foo';
     }
 }
