@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ef70cbfc3f7fd577b511700f72ce491",
+    "content-hash": "afa61f346d27061fcab51ed08e07c553",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1056,6 +1056,39 @@
                 "simple-cache"
             ],
             "time": "2017-10-23T01:57:42+00:00"
+        },
+        {
+            "name": "rybakdigital/ucc",
+            "version": "v1.21.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rybakdigital/ucc.git",
+                "reference": "2bfd611f23ca6a00a7f51a84c6c1f420fc0c2118"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rybakdigital/ucc/zipball/2bfd611f23ca6a00a7f51a84c6c1f420fc0c2118",
+                "reference": "2bfd611f23ca6a00a7f51a84c6c1f420fc0c2118",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ucc\\": "/Ucc"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Kris Rybak",
+                    "email": "kris.rybak@krisrybak.com"
+                }
+            ],
+            "description": "Universal Class Collection",
+            "time": "2018-12-14T13:07:09+00:00"
         },
         {
             "name": "symfony/cache",

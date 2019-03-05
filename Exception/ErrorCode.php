@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ErrorCode
 {
+    const MALFORMED_FILTER              = 4000101;
+    const MALFORMED_SORT                = 4000102;
     const AUTHENTICATION_FAILURE        = 4010001;
     const AUTHENTICATION_REQUIRED       = 4010002;
     const USER_NOT_FOUND                = 4040001;
@@ -22,6 +24,8 @@ class ErrorCode
     const PASSWORD_TOKEN_INVALID        = 4040031;
 
     public static $errorTexts = array(
+        4000101 => 'Malformed filter options',
+        4000102 => 'Malformed sort options',
         4010001 => 'Invalid Credentials',
         4010002 => 'Authentication Required',
         4030001 => 'Malformed user token. User token could not be parsed',

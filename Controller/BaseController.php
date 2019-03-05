@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 /**
  * Elective\FormatterBundle\Controller\BaseController
  *
- * @author Kris Rybak <kris.rybak@krisrybak.com>
+ * @author Kris Rybak <kris.rybak@electivegroup.com>
  */
 abstract class BaseController extends AbstractController
 {
