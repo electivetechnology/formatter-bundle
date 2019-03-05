@@ -57,7 +57,7 @@ abstract class AbstractCollection
         $ret = array();
 
         foreach ($collection as $model){
-            array_push($ret, $this->modelTransformer->transform($model));
+            array_push($ret, $this->getModelTransformer()->transform($model));
         }
 
         return $ret;
