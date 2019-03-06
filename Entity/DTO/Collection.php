@@ -1,13 +1,13 @@
 <?php
 
-namespace Elective\FormatterBundle\Entity;
+namespace Elective\FormatterBundle\Entity\DTO;
 
 /**
- * Elective\FormatterBundle\Entity\CollectionDTO
+ * Elective\FormatterBundle\Entity\DTO\Collection
  *
  * @author Kris Rybak <kris.rybak@krisrybak.com>
  */
-class CollectionDTO
+class Collection
 {
     /**
      * Result set

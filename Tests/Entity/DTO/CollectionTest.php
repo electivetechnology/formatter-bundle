@@ -1,16 +1,16 @@
 <?php
 
-namespace Elective\FormatterBundle\Tests\Entity;
+namespace Elective\FormatterBundle\Tests\Entity\DTO;
 
-use Elective\FormatterBundle\Entity\CollectionDTO;
+use Elective\FormatterBundle\Entity\DTO\Collection;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Elective\FormatterBundle\Tests\Entity\CollectionDTOTest
+ * Elective\FormatterBundle\Tests\Entity\DTO\CollectionTest
  *
  * @author Kris Rybak <kris@electivegroup.com>
  */
-class CollectionDTOTest extends TestCase
+class CollectionTest extends TestCase
 {
     public function resultsProvider()
     {
@@ -25,8 +25,8 @@ class CollectionDTOTest extends TestCase
      */
     public function testResultsGetandSet($results)
     {
-        $dto = new CollectionDTO;
-        $this->assertInstanceOf(CollectionDTO::class, $dto->setResults($results));
+        $dto = new Collection;
+        $this->assertInstanceOf(Collection::class, $dto->setResults($results));
         $this->assertSame($results, $dto->getResults());
     }
 
@@ -45,12 +45,12 @@ class CollectionDTOTest extends TestCase
     public function testTotalCountGetandSet($totalcount = 0)
     {
         if (!empty($totalcount)) {
-            $dto = new CollectionDTO(null, $totalcount);
+            $dto = new Collection(null, $totalcount);
         } else {
-            $dto = new CollectionDTO;
+            $dto = new Collection;
         }
         
-        $this->assertInstanceOf(CollectionDTO::class, $dto->setTotalCount($totalcount));
+        $this->assertInstanceOf(Collection::class, $dto->setTotalCount($totalcount));
         $this->assertSame($totalcount, $dto->getTotalCount());
     }
 }
