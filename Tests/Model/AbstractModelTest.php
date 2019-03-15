@@ -98,6 +98,11 @@ class AbstractModelTest extends TestCase
         $data[] = array([], 'foo');
         $data[] = array([1,2,3], 'foo');
 
+        $b = new B;
+        $id = "2345abc";
+        $b->id = $id;
+        $data[] = array($b, 'foo'.$id);
+
         return $data;
     }
 
@@ -113,5 +118,13 @@ class AbstractModelTest extends TestCase
 class A extends AbstractModel{
     public static function getName(): string {
         return 'foo';
+    }
+}
+
+class B{
+    public $id;
+
+    public function getId() {
+        return $this->id;
     }
 }
