@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @author Kris Rybak <kris@electivegroup.com>
  */
-class ParserException extends \Exception
+class ModelException extends \Exception
 {
     const MODEL_ERROR = Response::HTTP_INTERNAL_SERVER_ERROR;
 }
