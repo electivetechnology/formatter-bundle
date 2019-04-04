@@ -5,6 +5,7 @@ namespace Elective\FormatterBundle\Model;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
+ * Elective\FormatterBundle\Model\ModelException
  * This method provides the default Exception for ModelInterface
  *
  * @author Kris Rybak <kris@electivegroup.com>

@@ -22,6 +22,7 @@ class ErrorCode
     const USER_ORGANISATION_MISMATCH    = 4030003;
     const PASSWORD_RESET_LIMIT_EXCEEDED = 4290001;
     const PASSWORD_TOKEN_INVALID        = 4040031;
+    const DUPLICATE_ENTRY               = 4090001;
 
     public static $errorTexts = array(
         4000101 => 'Malformed filter options',
@@ -34,6 +35,7 @@ class ErrorCode
         4040001 => 'User not found. Supplied username or email address is invalid',
         4040021 => 'No primary email has been defined for the user',
         4040031 => 'Password token is not valid',
+        4090001 => 'Duplicate entry',
         4290001 => 'API rate limit exceeded for this call',
     );
 
