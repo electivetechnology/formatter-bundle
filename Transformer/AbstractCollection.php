@@ -49,10 +49,11 @@ abstract class AbstractCollection
     /**
      * Transforms collection
      *
-     * @param $collection iterable
+     * @param $collection   iterable
+     * @param $detailed     boolean     Whether to transform nested entities, default false
      * @return array
      */
-    public function transform(iterable $collection = null): array
+    public function transform(iterable $collection = null, $detailed = false): array
     {
         $ret = array();
 
