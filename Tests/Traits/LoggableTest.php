@@ -33,7 +33,7 @@ class LoggableTest extends TestCase
     {
         $a = new LoggableClass();
         $logger = new Logger();
-        $this->assertInstanceOf(A::class, $a->setLogger($logger));
+        $this->assertInstanceOf(LoggableClass::class, $a->setLogger($logger));
         $this->assertInstanceOf(LoggerInterface::class, $a->getLogger());
         $this->assertSame($logger, $a->getLogger());
     }
