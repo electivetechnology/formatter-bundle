@@ -4,6 +4,7 @@ namespace Elective\FormatterBundle\Tests\Traits;
 
 use Elective\FormatterBundle\Traits\Loggable;
 use Psr\Log\LoggerInterface;
+use PHPUnit\Framework\TestCase;
 
 class LoggableClass {
     use Loggable;
