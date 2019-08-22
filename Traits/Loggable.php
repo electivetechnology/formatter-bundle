@@ -20,7 +20,7 @@ trait Loggable
     {
         $this->logger = $logger;
 
-        return $this->logger;
+        return $this;
     }
 
     public function getLogger(): LoggerInterface
