@@ -5,7 +5,7 @@ namespace Elective\FormatterBundle\Tests\Traits;
 use Elective\FormatterBundle\Traits\Loggable;
 use Psr\Log\LoggerInterface;
 
-class A {
+class LoggableClass {
     use Loggable;
 }
 
@@ -30,7 +30,7 @@ class LoggableTest extends TestCase
 {
     public function testSetGetLogger()
     {
-        $a = new A;
+        $a = new LoggableClass();
         $logger = new Logger();
         $this->assertInstanceOf(A::class, $a->setLogger($logger));
         $this->assertInstanceOf(LoggerInterface::class, $a->getLogger());
