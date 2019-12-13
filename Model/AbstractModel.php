@@ -5,6 +5,7 @@ namespace Elective\FormatterBundle\Model;
 use Elective\FormatterBundle\Model\ModelInterface;
 use Elective\FormatterBundle\Entity\IdableInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -16,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 abstract class AbstractModel implements ModelInterface
 {
     /**
-     * @var EntityManagerInterface
+     * @var ObjectManager
      */
     private $manager;
 
@@ -30,7 +31,7 @@ abstract class AbstractModel implements ModelInterface
      */
     private $requestStack;
 
-    public function __construct(EntityManagerInterface $manager, EventDispatcherInterface $dispatcher, RequestStack $requestStack)
+    public function __construct(ObjectManager $manager, EventDispatcherInterface $dispatcher, RequestStack $requestStack)
     {
         $this->manager      = $manager;
         $this->dispatcher   = $dispatcher;
@@ -40,9 +41,9 @@ abstract class AbstractModel implements ModelInterface
     /**
      * Get manager
      *
-     * @return EntityManagerInterface
+     * @return ObjectManager
      */
-    public function getManager(): EntityManagerInterface
+    public function getManager(): ObjectManager
     {
         return $this->manager;
     }
@@ -50,10 +51,10 @@ abstract class AbstractModel implements ModelInterface
     /**
      * Set manager
      *
-     * @param $manager EntityManagerInterface
+     * @param $manager ObjectManager
      * @return self
      */
-    public function setManager(EntityManagerInterface $manager): self
+    public function setManager(ObjectManager $manager): self
     {
         $this->manager = $manager;
 

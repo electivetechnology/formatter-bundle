@@ -6,6 +6,7 @@ use Elective\FormatterBundle\Model\AbstractModel;
 use Elective\FormatterBundle\Entity\IdableInterface;
 use PHPUnit\Framework\TestCase;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -20,7 +21,7 @@ class AbstractModelTest extends TestCase
 
     protected function setUp(): void
     {
-        $manager = $this->createMock(EntityManagerInterface::class);
+        $manager = $this->createMock(ObjectManager::class);
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
         $requestStack = $this->createMock(RequestStack::class);
 
@@ -37,7 +38,7 @@ class AbstractModelTest extends TestCase
             ->setConstructorArgs([$manager, $dispatcher, $requestStack])
             ->getMock();
 
-        $this->assertInstanceOf(EntityManagerInterface::class, $model->getManager());
+        $this->assertInstanceOf(ObjectManager::class, $model->getManager());
         $this->assertInstanceOf(EventDispatcherInterface::class, $model->getDispatcher());
         $this->assertInstanceOf(RequestStack::class, $model->getRequestStack());
     }
