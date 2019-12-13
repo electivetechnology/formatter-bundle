@@ -82,20 +82,20 @@ class Exception implements EventSubscriberInterface
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
         // Return symfony flavour exception in dev mode for all system exceptions
-        if ($this->getEnv() != 'dev' || $event->getThrowable() instanceof ApiException) {
+        if ($this->getEnv() != 'dev' || $event->getException() instanceof ApiException) {
             $ret            = new \StdClass;
-            $ret->message   = $event->getThrowable()->getMessage();
-            $ret->code      = $event->getThrowable()->getCode();
+            $ret->message   = $event->getException()->getMessage();
+            $ret->code      = $event->getException()->getCode();
 
             // Check if the exception is HTTP Exception type and overwrite defaults
-            if (method_exists($event->getThrowable(), "getStatusCode")) {
-                $statusCode = $event->getThrowable()->getStatusCode();
+            if (method_exists($event->getException(), "getStatusCode")) {
+                $statusCode = $event->getException()->getStatusCode();
             } else {
                 $statusCode = JsonResponse::HTTP_INTERNAL_SERVER_ERROR;
             }
 
-            if ($event->getThrowable() instanceof ApiException) {
-                $this->formatter->setHeaders($event->getThrowable()->getHeaders());
+            if ($event->getException() instanceof ApiException) {
+                $this->formatter->setHeaders($event->getException()->getHeaders());
             }
 
             $response = $this->formatter->render($ret, $statusCode);
