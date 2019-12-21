@@ -34,8 +34,11 @@ trait Filterable
         if (!empty($filters)) {
             // Check if we have nested filters
             if (count($filters) !== count($filters, COUNT_RECURSIVE)) {
-                foreach ($filters as $filter) {
-                    $nested[] = $filter;
+                foreach ($filters as $namespace => $filter) {
+                    if (!is_array($filter)) {
+                        $filter = array($filter);
+                    }
+                    $nested[$namespace] = $filter;
                 }
 
                 $filters = $nested;
