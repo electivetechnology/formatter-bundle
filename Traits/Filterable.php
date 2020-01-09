@@ -75,4 +75,20 @@ trait Filterable
 
         return $filtersMap;
     }
+
+    /**
+     * Generates query version of filters, i.e. '&filters[0]=and-candidate.firstName-eq-value-joe'
+     *
+     * @param array $filters    Array of filters: ['and-candidate.firstName-eq-value-joe', 'and-candidate.firstName-eq-value-doe']
+     */
+    public static function getUrlQueryFilters(array $filters): string
+    {
+        $query = '';
+
+        foreach ($filters as $filter) {
+            $query .= '&filters[]='. $filter;
+        }
+
+        return $query;
+    }
 }
