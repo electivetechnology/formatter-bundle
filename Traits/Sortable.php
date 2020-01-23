@@ -39,4 +39,20 @@ trait Sortable
 
         return $sorts;
     }
+
+    /**
+     * Generates query version of sorts, i.e. '&sorts[0]=candidate.firstName-asc'
+     *
+     * @param array $sorts    Array of sorts: ['candidate.firstName-asc', 'candidate.lastName-desc']
+     */
+    public static function getUrlQuerySorts(array $sorts): string
+    {
+        $query = '';
+
+        foreach ($sorts as $sort) {
+            $query .= '&sorts[]='. $sort;
+        }
+
+        return $query;
+    }
 }
