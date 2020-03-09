@@ -33,6 +33,11 @@ class Formatter implements FormatterInterface
     private $parsers;
 
     /**
+     * @var array
+     */
+    private $requestedFormats;
+
+    /**
      * @var ParserInterface
      */
     private $defaultParser;
@@ -42,6 +47,7 @@ class Formatter implements FormatterInterface
         $this->requestStack         = $requestStack;
         $this->headers              = array();
         $this->parsers              = $parsers;
+        $this->requestedFormats     = array();
         $this->defaultParser        = new JsonParser;
     }
 
@@ -66,12 +72,18 @@ class Formatter implements FormatterInterface
         $headers = array_merge($headers, $this->headers);
         $response->headers->add($headers);
 
+        if (empty($this->getRequestedFormats())) {
+            if ($this->requestStack->getCurrentRequest()->headers->get(self::CONTENT_TYPE_HEADER) == '*/*') {
+                $this->addRequestedFormat($this->getDefaultParser()->getDefaultMimeType());
+            } else {
+                $this->addRequestedFormat($this->requestStack->getCurrentRequest()->headers->get(self::CONTENT_TYPE_HEADER));
+            }
+        }
+
         // Parse data
         if (!is_null($this->requestStack)) {
-            $requestedContentType = $this->requestStack->getCurrentRequest()->headers->get(self::CONTENT_TYPE_HEADER);
-
             // Match parser
-            $parser = $this->getParser($requestedContentType);
+            $parser = $this->getParser($this->getRequestedFormat());
 
             // If requested parser has been found format data and add headers
             if ($parser) {
@@ -79,7 +91,7 @@ class Formatter implements FormatterInterface
                 $ret = $parser::format($data);
 
                 // Add Headers
-                $response->headers->add([self::CONTENT_TYPE_HEADER => $requestedContentType]);
+                $response->headers->add([self::CONTENT_TYPE_HEADER => $this->getRequestedFormat()]);
             } else {
                 // Try default parser
                 if ($this->getDefaultParser() instanceof ParserInterface) {
@@ -240,5 +252,55 @@ class Formatter implements FormatterInterface
     public function getDefaultParser()
     {
         return $this->defaultParser;
+    }
+
+    /**
+     * Set RequestedFormats
+     *
+     * @param array $requestedFormat   Mime type requested
+     * @return FormatterInterface
+     */
+    public function setRequestedFormats(array $requestedFormats)
+    {
+        $this->requestedFormats = $requestedFormats;
+
+        return $this;
+    }
+
+    /**
+     * Add RequestedFormat
+     *
+     * @param string  $requestedFormat    Content type
+     * @return FormatterInterface
+     */
+    public function addRequestedFormat($requestedFormat)
+    {
+        $this->requestedFormats[] = $requestedFormat;
+
+        return $this;
+    }
+
+    /**
+     * Get RequestedFormats
+     *
+     * @return array
+     */
+    public function getRequestedFormats(): array
+    {
+        return $this->requestedFormats;
+    }
+
+    /**
+     * Get RequestedFormat
+     *
+     * @return array
+     */
+    public function getRequestedFormat($index = 0): ?string
+    {
+        if (isset($this->requestedFormats[0])) {
+            return $this->requestedFormats[0];
+        }
+
+        return null;
     }
 }
