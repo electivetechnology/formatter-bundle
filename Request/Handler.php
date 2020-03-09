@@ -121,7 +121,7 @@ class Handler implements HandlerInterface
     public function getRequestedFormat(): string
     {
         $request    = $this->requestStack->getMasterRequest();
-        $type       = $request->headers->get('content_type', null);
+        $type       = $request->headers->get('accept', null);
 
         if (!empty($type)){
             return self::getFormat($type);

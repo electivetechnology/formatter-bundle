@@ -28,7 +28,7 @@ class HandlerTest extends TestCase
 
         $requestStack = new RequestStack();
         $request = new Request;
-        $request->headers->set('Content-Type', 'text/plain');
+        $request->headers->set('Accept', 'text/plain');
         $requestStack->push($request);
 
         $requestHandler = new RequestHandler($requestStack);
@@ -76,7 +76,7 @@ class HandlerTest extends TestCase
         $parameters = get_object_vars($object);
 
         $request = new Request;
-        $request->headers->set('content_type', RequestHandler::FORMAT_BODY_FORM_DATA);
+        $request->headers->set('accept', RequestHandler::FORMAT_BODY_FORM_DATA);
 
         foreach ($parameters as $key => $value) {
             $request->request->set($key, $value);
@@ -104,7 +104,7 @@ class HandlerTest extends TestCase
             JsonParser::format($object)
         );
 
-        $request->headers->set('content_type', RequestHandler::FORMAT_BODY_RAW_JSON);
+        $request->headers->set('accept', RequestHandler::FORMAT_BODY_RAW_JSON);
 
         $requestStack = new RequestStack;
         $requestStack->push($request);
@@ -132,7 +132,7 @@ class HandlerTest extends TestCase
             $data
         );
 
-        $request->headers->set('content_type', RequestHandler::FORMAT_BODY_RAW_JSON);
+        $request->headers->set('accept', RequestHandler::FORMAT_BODY_RAW_JSON);
 
         $requestStack = new RequestStack;
         $requestStack->push($request);
