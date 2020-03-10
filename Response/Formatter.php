@@ -7,6 +7,7 @@ use Elective\FormatterBundle\Parsers\ParserInterface;
 use Elective\FormatterBundle\Parsers\Json as JsonParser;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\HeaderBag;
 
 /**
  * Elective\FormatterBundle\Response\Formatter
@@ -73,10 +74,13 @@ class Formatter implements FormatterInterface
         $response->headers->add($headers);
 
         if (empty($this->getRequestedFormats())) {
-            if ($this->requestStack->getCurrentRequest()->headers->get(self::CONTENT_TYPE_HEADER) == '*/*') {
-                $this->addRequestedFormat($this->getDefaultParser()->getDefaultMimeType());
-            } else {
-                $this->addRequestedFormat($this->requestStack->getCurrentRequest()->headers->get(self::CONTENT_TYPE_HEADER));
+            if (!is_null($this->requestStack->getCurrentRequest())
+                && ($this->requestStack->getCurrentRequest()->headers instanceof HeaderBag)) {
+                if ($this->requestStack->getCurrentRequest()->headers->get(self::CONTENT_TYPE_HEADER) == '*/*') {
+                    $this->addRequestedFormat($this->getDefaultParser()->getDefaultMimeType());
+                } else {
+                    $this->addRequestedFormat($this->requestStack->getCurrentRequest()->headers->get(self::CONTENT_TYPE_HEADER));
+                }
             }
         }
 

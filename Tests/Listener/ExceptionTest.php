@@ -10,6 +10,7 @@ use Elective\FormatterBundle\Exception\ApiException;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
@@ -23,7 +24,10 @@ class ExceptionTest extends TestCase
 
     protected function setUp(): void
     {
-        $formatter = new Formatter();
+        $requestStack   = $this->createMock(RequestStack::class);
+        $request        = $this->createMock(Request::class);
+        $requestStack->method('getCurrentRequest')->willReturn($request);
+        $formatter      = new Formatter($requestStack);
         $this->listener = new Exception($formatter);
     }
 
@@ -77,7 +81,10 @@ class ExceptionTest extends TestCase
      */
     public function testOnKernelException($env, $event, $isResponse = false, $expectedStatusCode = null, $headerKey = null, $headerVal = null)
     {
-        $formatter  = new Formatter();
+        $requestStack   = $this->createMock(RequestStack::class);
+        $request        = $this->createMock(Request::class);
+        $requestStack->method('getCurrentRequest')->willReturn($request);
+        $formatter      = new Formatter($requestStack);
         $listener   = new Exception($formatter, $env);
         $responseEvent = $listener->onKernelException($event);
         $this->assertInstanceOf(GetResponseForExceptionEvent::class, $responseEvent);
