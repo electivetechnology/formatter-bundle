@@ -7,6 +7,8 @@ use Elective\FormatterBundle\Response\Formatter as ResponseFormatter;
 use Elective\FormatterBundle\Response\FormatterInterface;
 use Elective\FormatterBundle\Parsers\Json as JsonParser;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Elective\FormatterBundle\Tests\Response\Formatter\FormatterTest
@@ -15,9 +17,19 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class FormatterTest extends TestCase
 {
+    public function createResponseFormatter(): ResponseFormatter
+    {
+        $requestStack   = $this->createMock(RequestStack::class);
+        $request        = $this->createMock(Request::class);
+        $requestStack->method('getCurrentRequest')->willReturn($request);
+        $formatter      = new ResponseFormatter($requestStack);
+
+        return $formatter;
+    }
+
     public function testRenderPromise()
     {
-        $responseFormatter = new ResponseFormatter;
+        $responseFormatter = $this->createResponseFormatter();
 
         $ret = $responseFormatter->render();
 
@@ -32,7 +44,7 @@ class FormatterTest extends TestCase
      */
     public function testRenderCorrectStatus($suppliedStatus, $expectedStatus)
     {
-        $responseFormatter = new ResponseFormatter;
+        $responseFormatter = $this->createResponseFormatter();
 
         $ret = $responseFormatter->render(null, $suppliedStatus);
 
@@ -56,8 +68,9 @@ class FormatterTest extends TestCase
      */
     public function testRenderCorrectHeaders($headers)
     {
-        $responseFormatter = new ResponseFormatter;
+        $requestStack = $this->createMock(RequestStack::class);
 
+        $responseFormatter = $this->createResponseFormatter();
         $ret = $responseFormatter->render(null, null, $headers);
 
         // test headers are present in the Response object
@@ -88,7 +101,7 @@ class FormatterTest extends TestCase
      */
     public function testSetHeaders($headers)
     {
-        $responseFormatter = new ResponseFormatter;
+        $responseFormatter = $this->createResponseFormatter();
 
         // Set Headers
         $this->assertInstanceOf(FormatterInterface::class, $responseFormatter->setHeaders($headers));
@@ -123,7 +136,7 @@ class FormatterTest extends TestCase
      */
     public function testAddHeader($key, $value)
     {
-        $responseFormatter = new ResponseFormatter;
+        $responseFormatter = $this->createResponseFormatter();
 
         // Set Headers
         $this->assertInstanceOf(FormatterInterface::class, $responseFormatter->addHeader($key, $value));
@@ -151,7 +164,7 @@ class FormatterTest extends TestCase
      */
     public function testSetAndRemoveParsers($parsers)
     {
-        $responseFormatter = new ResponseFormatter;
+        $responseFormatter = $this->createResponseFormatter();
 
         // Set Parsers
         $this->assertInstanceOf(FormatterInterface::class, $responseFormatter->setParsers($parsers));
@@ -180,7 +193,7 @@ class FormatterTest extends TestCase
      */
     public function testAddParsers($contentType, $parser)
     {
-        $responseFormatter = new ResponseFormatter;
+        $responseFormatter = $this->createResponseFormatter();
 
         // Add Parser
         $this->assertInstanceOf(FormatterInterface::class, $responseFormatter->addParser($contentType, $parser));
@@ -205,7 +218,7 @@ class FormatterTest extends TestCase
      */
     public function testSetDefaultParser($parser)
     {
-        $responseFormatter = new ResponseFormatter;
+        $responseFormatter = $this->createResponseFormatter();
 
         // Add Parser
         $this->assertInstanceOf(FormatterInterface::class, $responseFormatter->setDefaultParser($parser));

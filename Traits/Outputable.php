@@ -90,6 +90,8 @@ trait Outputable
      */
     protected function output($data, $status = null, $headers = []): Response
     {
+        $this->getFormatter()->addRequestedFormat($this->getHandler()->getRequestedFormat());
+
         return $this->formatter->render($data, $status, $headers);
     }
 }

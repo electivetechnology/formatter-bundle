@@ -100,6 +100,10 @@ class Csv implements ParserInterface
                 $ret[$key] = '';
             }
 
+            if (is_bool($value)) {
+                $ret[$key] = ($value) ? 'true' : 'false';
+            }
+
             if ($value instanceof \DateTimeInterface) {
                 $ret[$key] = $value->format('Y-m-d H:i:s');
             } elseif (is_object($value)) {

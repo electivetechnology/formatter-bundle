@@ -121,10 +121,10 @@ class Handler implements HandlerInterface
     public function getRequestedFormat(): string
     {
         $request    = $this->requestStack->getMasterRequest();
-        $type       = $request->headers->get('accept', null);
+        $types      = $request->headers->get('accept', '*/*');
 
-        if (!empty($type)){
-            return self::getFormat($type);
+        if ($types != '*/*'){
+            return self::getFormat($types);
         }
 
         return $this->getDefaultFormat();
@@ -133,15 +133,15 @@ class Handler implements HandlerInterface
     /**
      * Gets format based on known mime type
      *
-     * @param   string  $mimeType
+     * @param   string  $mimeTypes
      * @return  string|null
      */
-    public static function getFormat($mimeType)
+    public static function getFormat($mimeTypes)
     {
-        $canonicalMimeType = $mimeType;
+        $canonicalMimeType = $mimeTypes;
 
-        if (false !== $pos = strpos($mimeType, ';')) {
-            $canonicalMimeType = substr($mimeType, 0, $pos);
+        if (false !== $pos = strpos($mimeTypes, ';')) {
+            $canonicalMimeType = substr($mimeTypes, 0, $pos);
         }
 
         if (array_key_exists($canonicalMimeType, self::$mimeTypeMapper)) {
