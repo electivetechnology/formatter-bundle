@@ -69,6 +69,7 @@ class Csv implements ParserInterface
 
         $headerCount = 0;
         $headers = [];
+        $currentContent = '';
         foreach ($data as $key => $row) {
             $currentHeaders = array_keys($row);
             $currentHeaderCount = count($currentHeaders);
@@ -79,10 +80,9 @@ class Csv implements ParserInterface
             }
 
             fputcsv($out, array_values($row));
+            $currentContent .= ob_get_contents();
+            ob_clean();
         }
-
-        $currentContent = ob_get_contents();
-        ob_end_clean();
 
         fputcsv($out, $headers);
         fwrite($out, $currentContent);
