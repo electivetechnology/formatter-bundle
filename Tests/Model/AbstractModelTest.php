@@ -6,6 +6,7 @@ use Elective\FormatterBundle\Model\AbstractModel;
 use Elective\FormatterBundle\Entity\IdableInterface;
 use PHPUnit\Framework\TestCase;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -23,8 +24,9 @@ class AbstractModelTest extends TestCase
         $manager = $this->createMock(EntityManagerInterface::class);
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
         $requestStack = $this->createMock(RequestStack::class);
+        $logger = $this->createMock(Logger::class);
 
-        $this->model = new A($manager, $dispatcher, $requestStack);
+        $this->model = new A($manager, $dispatcher, $requestStack, $logger);
     }
 
     public function testConstructor()
@@ -32,14 +34,16 @@ class AbstractModelTest extends TestCase
         $manager = $this->createMock(EntityManagerInterface::class);
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
         $requestStack = $this->createMock(RequestStack::class);
+        $logger = $this->createMock(Logger::class);
 
         $model = $this->getMockBuilder(AbstractModel::class)
-            ->setConstructorArgs([$manager, $dispatcher, $requestStack])
+            ->setConstructorArgs([$manager, $dispatcher, $requestStack, $logger])
             ->getMock();
 
         $this->assertInstanceOf(EntityManagerInterface::class, $model->getManager());
         $this->assertInstanceOf(EventDispatcherInterface::class, $model->getDispatcher());
         $this->assertInstanceOf(RequestStack::class, $model->getRequestStack());
+        $this->assertInstanceOf(Logger::class, $model->getLogger());
     }
 
     public function testManager()
@@ -47,9 +51,10 @@ class AbstractModelTest extends TestCase
         $manager = $this->createMock(EntityManagerInterface::class);
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
         $requestStack = $this->createMock(RequestStack::class);
+        $logger = $this->createMock(Logger::class);
 
-        $model = new A($manager, $dispatcher, $requestStack);
-        
+        $model = new A($manager, $dispatcher, $requestStack, $logger);
+
         $newManager = $this->createMock(EntityManagerInterface::class);
         $this->assertInstanceOf(AbstractModel::class, $model->setManager($newManager));
         $this->assertSame($newManager, $model->getManager());
@@ -60,9 +65,10 @@ class AbstractModelTest extends TestCase
         $manager = $this->createMock(EntityManagerInterface::class);
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
         $requestStack = $this->createMock(RequestStack::class);
+        $logger = $this->createMock(Logger::class);
 
-        $model = new A($manager, $dispatcher, $requestStack);
-        
+        $model = new A($manager, $dispatcher, $requestStack, $logger);
+
         $newDispatcher = $this->createMock(EventDispatcherInterface::class);
         $this->assertInstanceOf(AbstractModel::class, $model->setDispatcher($newDispatcher));
         $this->assertSame($newDispatcher, $model->getDispatcher());
@@ -73,12 +79,27 @@ class AbstractModelTest extends TestCase
         $manager = $this->createMock(EntityManagerInterface::class);
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
         $requestStack = $this->createMock(RequestStack::class);
+        $logger = $this->createMock(Logger::class);
 
-        $model = new A($manager, $dispatcher, $requestStack);
-        
+        $model = new A($manager, $dispatcher, $requestStack, $logger);
+
         $newRequestStack = $this->createMock(RequestStack::class);
         $this->assertInstanceOf(AbstractModel::class, $model->setRequestStack($newRequestStack));
         $this->assertSame($newRequestStack, $model->getRequestStack());
+    }
+
+    public function testLogger()
+    {
+        $manager = $this->createMock(EntityManagerInterface::class);
+        $dispatcher = $this->createMock(EventDispatcherInterface::class);
+        $requestStack = $this->createMock(RequestStack::class);
+        $logger = $this->createMock(Logger::class);
+
+        $model = new A($manager, $dispatcher, $requestStack, $logger);
+
+        $newLogger = $this->createMock(Logger::class);
+        $this->assertInstanceOf(AbstractModel::class, $model->setLogger($logger));
+        $this->assertSame($newLogger, $model->getLogger());
     }
 
     public function tagDataProvider()
