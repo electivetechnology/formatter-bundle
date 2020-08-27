@@ -98,7 +98,7 @@ class AbstractModelTest extends TestCase
         $model = new A($manager, $dispatcher, $requestStack, $logger);
 
         $newLogger = $this->createMock(LoggerInterface::class);
-        $this->assertInstanceOf(AbstractModel::class, $model->setLogger($logger));
+        $this->assertInstanceOf(AbstractModel::class, $model->setLogger($newLogger));
         $this->assertSame($newLogger, $model->getLogger());
     }
 
