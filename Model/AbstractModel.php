@@ -36,7 +36,7 @@ abstract class AbstractModel implements ModelInterface
      */
     private $logger;
 
-    public function __construct(EntityManagerInterface $manager, EventDispatcherInterface $dispatcher, RequestStack $requestStack, LoggerInterface $logger)
+    public function __construct(EntityManagerInterface $manager, EventDispatcherInterface $dispatcher, RequestStack $requestStack, LoggerInterface $logger = null)
     {
         $this->manager      = $manager;
         $this->dispatcher   = $dispatcher;
