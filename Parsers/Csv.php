@@ -65,14 +65,28 @@ class Csv implements ParserInterface
             $data[] = self::parseRow($value);
         }
 
+        ob_start();
         $out = fopen('php://output', 'w');
+
+        $headerCount = 0;
+        $headers = [];
         foreach ($data as $key => $row) {
-            if ($key == 0) {
-                fputcsv($out, array_keys($row));
+            $currentHeaders = array_keys($row);
+            $currentHeaderCount = count($currentHeaders);
+
+            if ($currentHeaderCount > $headerCount) {
+                $headers = $currentHeaders;
+                $headerCount = $currentHeaderCount;
             }
-            
+
             fputcsv($out, array_values($row));
         }
+
+        $csvContent = ob_get_contents();
+        ob_clean();
+
+        fputcsv($out, $headers);
+        fwrite($out, $csvContent);
 
         fclose($out);
     }

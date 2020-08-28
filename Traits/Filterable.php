@@ -86,7 +86,7 @@ trait Filterable
         $query = '';
 
         foreach ($filters as $filter) {
-            $query .= '&filters[]='. $filter;
+            $query .= '&filters[]='. urlencode($filter);
         }
 
         return $query;
