@@ -17,13 +17,13 @@
     "require": {
         "php": "^7.1.3",
         "doctrine/orm": "^2.6",
-        "symfony/http-kernel": "^4.4",
-        "symfony/config": "^4.4",
-        "symfony/http-foundation": "^4.4",
-        "symfony/cache": "^4.4",
-        "symfony/security": "^4.4",
         "rybakdigital/ucc": "^1.21",
-        "symfony/dependency-injection": "^4"
+        "symfony/dependency-injection": "^4",
+        "symfony/http-kernel": "^4",
+        "symfony/config": "^4",
+        "symfony/http-foundation": "^4",
+        "symfony/cache": "^4",
+        "symfony/security": "^4"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.5",
