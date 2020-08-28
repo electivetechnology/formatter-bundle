@@ -5,6 +5,7 @@ namespace Elective\FormatterBundle\Model;
 use Elective\FormatterBundle\Model\ModelInterface;
 use Elective\FormatterBundle\Entity\IdableInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -30,11 +31,17 @@ abstract class AbstractModel implements ModelInterface
      */
     private $requestStack;
 
-    public function __construct(EntityManagerInterface $manager, EventDispatcherInterface $dispatcher, RequestStack $requestStack)
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    public function __construct(EntityManagerInterface $manager, EventDispatcherInterface $dispatcher, RequestStack $requestStack, LoggerInterface $logger = null)
     {
         $this->manager      = $manager;
         $this->dispatcher   = $dispatcher;
         $this->requestStack = $requestStack;
+        $this->logger = $logger;
     }
 
     /**
@@ -102,6 +109,29 @@ abstract class AbstractModel implements ModelInterface
     public function setRequestStack(RequestStack $requestStack): self
     {
         $this->requestStack = $requestStack;
+
+        return $this;
+    }
+
+    /**
+     * Get logger
+     *
+     * @return LoggerInterface
+     */
+    public function getLogger(): LoggerInterface
+    {
+        return $this->logger;
+    }
+
+    /**
+     * Set logger
+     *
+     * @param $logger LoggerInterface
+     * @return self
+     */
+    public function setLogger(LoggerInterface $logger): self
+    {
+        $this->logger = $logger;
 
         return $this;
     }
