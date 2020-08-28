@@ -4,7 +4,7 @@ namespace Elective\FormatterBundle\Listener\Cache;
 
 use Elective\FormatterBundle\Event\CacheTagClearableInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Cache\Adapter\TagAwareAdapter;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 /**
  * Elective\FormatterBundle\Listener\Cache\TagClearableEventListener
@@ -14,21 +14,21 @@ use Symfony\Component\Cache\Adapter\TagAwareAdapter;
 class TagClearableEventListener implements EventSubscriberInterface
 {
     /**
-     * @var TagAwareAdapter
+     * @var TagAwareCacheInterface
      */
     private $cache;
 
-    public function __construct(TagAwareAdapter $cache)
+    public function __construct(TagAwareCacheInterface $cache)
     {
-         $this->cache = $cache;
+        $this->cache = $cache;
     }
 
     /**
      * Get Cache
      *
-     * @return TagAwareAdapter
+     * @return TagAwareCacheInterface
      */
-    public function getCache(): TagAwareAdapter
+    public function getCache(): TagAwareCacheInterface
     {
         return $this->cache;
     }
@@ -36,10 +36,10 @@ class TagClearableEventListener implements EventSubscriberInterface
     /**
      * Set Cache
      *
-     * @param $cache TagAwareAdapter
+     * @param $cache TagAwareCacheInterface
      * @return self
      */
-    public function setCache(TagAwareAdapter $cache): self
+    public function setCache(TagAwareCacheInterface $cache): self
     {
         $this->cache = $cache;
 
