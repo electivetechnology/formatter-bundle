@@ -32,7 +32,8 @@ class Handler implements HandlerInterface
             FORMAT_BODY_URLENCODED      = 'application/x-www-form-urlencoded',
             FORMAT_BODY_RAW_JSON        = 'application/json',
             FORMAT_BODY_RAW_TEXT        = 'text/plain',
-            FORMAT_BODY_RAW_CSV         = 'text/csv';
+            FORMAT_BODY_RAW_CSV         = 'text/csv',
+            FORMAT_BODY_RAW_HTML        = 'text/html';
 
     /**
      * Array of supported request body formats
@@ -53,11 +54,12 @@ class Handler implements HandlerInterface
      * @static array
      */
     public static $mimeTypeMapper = array(
-        'multipart/form-data'               => self::FORMAT_BODY_FORM_DATA,
-        'application/x-www-form-urlencoded' => self::FORMAT_BODY_URLENCODED,
-        'application/json'                  => self::FORMAT_BODY_RAW_JSON,
-        'text/plain'                        => self::FORMAT_BODY_RAW_TEXT,
-        'text/csv'                          => self::FORMAT_BODY_RAW_CSV,
+        'multipart/form-data'                               => self::FORMAT_BODY_FORM_DATA,
+        'application/x-www-form-urlencoded'                 => self::FORMAT_BODY_URLENCODED,
+        'application/json'                                  => self::FORMAT_BODY_RAW_JSON,
+        'text/plain'                                        => self::FORMAT_BODY_RAW_TEXT,
+        'text/csv'                                          => self::FORMAT_BODY_RAW_CSV,
+        'text/html,application/xhtml+xml,application/xml'   => self::FORMAT_BODY_RAW_HTML,
     );
 
     /**
@@ -158,9 +160,27 @@ class Handler implements HandlerInterface
      */
     public function getFilters()
     {
+        // Get master request
         $request = $this->requestStack->getMasterRequest();
 
-        return $request->query->get('filters', array());
+        // Lets process query filters first
+        $filters = $request->query->get('filters', array());
+
+        $obj = json_decode($request->getContent());
+
+        if (!is_null($obj) && isset($obj->query)) {
+            // Parse query into array of keys
+            parse_str(htmlspecialchars_decode($obj->query), $query);
+
+            // Get filters if any
+            if (isset($query['filters']) && is_array($query['filters'])) {
+                foreach ($query['filters'] as $filter) {
+                    $filters[] = $filter;
+                }
+            }
+        }
+
+        return $filters;
     }
 
     /**
