@@ -7,7 +7,7 @@ use Elective\FormatterBundle\Response\Formatter;
 use Elective\FormatterBundle\Response\FormatterInterface;
 use PHPUnit\Framework\TestCase;
 use Elective\FormatterBundle\Exception\ApiException;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -63,14 +63,14 @@ class ExceptionTest extends TestCase
         $request = $this->createMock(Request::class);
 
         $exception = new ApiException('foo', 400000, 400, ['X-foo' => 'bar']);
-        $event = new GetResponseForExceptionEvent($kernel, $request, HttpKernelInterface::MASTER_REQUEST, $exception);
+        $event = new ExceptionEvent($kernel, $request, HttpKernelInterface::MASTER_REQUEST, $exception);
 
         $data[] = array('dev', $event, true, 400, 'X-foo', 'bar');
         $data[] = array('test', $event, true, 400, 'X-foo', 'bar');
         $data[] = array('prod', $event, true, 400, 'X-foo', 'bar');
 
         $exception = new \Exception('foo');
-        $event = new GetResponseForExceptionEvent($kernel, $request, HttpKernelInterface::MASTER_REQUEST, $exception);
+        $event = new ExceptionEvent($kernel, $request, HttpKernelInterface::MASTER_REQUEST, $exception);
         $data[] = array('prod', $event, true, 500);
 
         return $data;
@@ -79,15 +79,15 @@ class ExceptionTest extends TestCase
     /**
      * @dataProvider onKernelExceptionProvider
      */
-    public function testOnKernelException($env, $event, $isResponse = false, $expectedStatusCode = null, $headerKey = null, $headerVal = null)
+    public function testOnKernelException($env, $event, $isResponse = false, $expectedStatusCode = null, $headerKey = '', $headerVal = null)
     {
         $requestStack   = $this->createMock(RequestStack::class);
         $request        = $this->createMock(Request::class);
         $requestStack->method('getCurrentRequest')->willReturn($request);
         $formatter      = new Formatter($requestStack);
-        $listener   = new Exception($formatter, $env);
-        $responseEvent = $listener->onKernelException($event);
-        $this->assertInstanceOf(GetResponseForExceptionEvent::class, $responseEvent);
+        $listener       = new Exception($formatter, $env);
+        $responseEvent  = $listener->onKernelException($event);
+        $this->assertInstanceOf(ExceptionEvent::class, $responseEvent);
 
         if ($expectedStatusCode) {
             $this->assertEquals($expectedStatusCode, $responseEvent->getResponse()->getStatusCode());

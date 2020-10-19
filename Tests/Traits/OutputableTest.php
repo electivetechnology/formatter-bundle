@@ -24,11 +24,9 @@ class OutputableTest extends TestCase
         $this->assertSame($formatter, $testClass->getFormatter());
     }
 
-    /**
-     * @expectedException \TypeError
-     */
     public function testSetFormatterFail()
     {
+        $this->expectException(\TypeError::class);
         $formatter = new \StdClass;
         $testClass = new OutputableExample();
 
@@ -44,11 +42,9 @@ class OutputableTest extends TestCase
         $this->assertSame($handler, $testClass->getHandler());
     }
 
-    /**
-     * @expectedException \TypeError
-     */
     public function testSetHandlerFail()
     {
+        $this->expectException(\TypeError::class);
         $handler = new \StdClass;
         $testClass = new OutputableExample();
 

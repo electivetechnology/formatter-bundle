@@ -3,6 +3,7 @@
 namespace Elective\FormatterBundle\Tests\Parsers;
 
 use Elective\FormatterBundle\Parsers\Json as Parser;
+use Elective\FormatterBundle\Parsers\ParserException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -74,12 +75,10 @@ class JsonTest extends TestCase
         $this->assertSame($expected, $actual);
     }
 
-    /**
-      * @expectedException     Elective\FormatterBundle\Parsers\ParserException
-      * @expectedExceptionCode Elective\FormatterBundle\Parsers\ParserException::BAD_REQUEST
-      */
     public function testJsonDecodeFail()
     {
+        $this->expectException(ParserException::class);
+        $this->expectExceptionCode(ParserException::BAD_REQUEST);
         // Test with a maximum stack set too low
         $encoded  = json_encode($this->data);
         Parser::decode($encoded, TRUE, 1);

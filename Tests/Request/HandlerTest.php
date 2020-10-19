@@ -118,10 +118,10 @@ class HandlerTest extends TestCase
 
     /**
      * @dataProvider getPostDataFailProvider
-     * @expectedException   Exception
      */
     public function testGetPostDataFail($data)
     {
+        $this->expectException(\Exception::class);
         $request = Request::create(
             '/',
             'GET',
