@@ -15,7 +15,7 @@ class JsonTest extends TestCase
 {
     private $data;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->data           = new \StdClass();
         $this->data->name     = 'Test Obj';
