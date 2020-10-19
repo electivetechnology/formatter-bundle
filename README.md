@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/electivegroup/formatter-bundle.svg?branch=master)](https://travis-ci.org/electivegroup/formatter-bundle)
 
-Provides collection of utility classes for handling input/output in Symfony 4 application
+Provides collection of utility classes for handling input/output in Symfony 5 application
 
 ## Usage
 Add as a requirement via composer:
