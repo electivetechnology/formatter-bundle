@@ -11,5 +11,5 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ParserException extends \Exception
 {
-    public const BAD_REQUEST = Response::HTTP_BAD_REQUEST;
+    const BAD_REQUEST = Response::HTTP_BAD_REQUEST;
 }

@@ -19,7 +19,7 @@ class HandlerTest extends TestCase
     public function testGetRequestedFormat()
     {
         $requestStack = new RequestStack();
-        $requestStack->push(new Request());
+        $requestStack->push(new Request);
 
         $requestHandler = new RequestHandler($requestStack);
         $ret = $requestHandler->getRequestedFormat();
@@ -27,7 +27,7 @@ class HandlerTest extends TestCase
         $this->assertSame($requestHandler->getDefaultFormat(), $ret);
 
         $requestStack = new RequestStack();
-        $request = new Request();
+        $request = new Request;
         $request->headers->set('Accept', 'text/plain');
         $requestStack->push($request);
 
@@ -75,14 +75,14 @@ class HandlerTest extends TestCase
 
         $parameters = get_object_vars($object);
 
-        $request = new Request();
+        $request = new Request;
         $request->headers->set('accept', RequestHandler::FORMAT_BODY_FORM_DATA);
 
         foreach ($parameters as $key => $value) {
             $request->request->set($key, $value);
         }
 
-        $requestStack = new RequestStack();
+        $requestStack = new RequestStack;
         $requestStack->push($request);
 
         $requestHandler = new RequestHandler($requestStack);
@@ -106,7 +106,7 @@ class HandlerTest extends TestCase
 
         $request->headers->set('accept', RequestHandler::FORMAT_BODY_RAW_JSON);
 
-        $requestStack = new RequestStack();
+        $requestStack = new RequestStack;
         $requestStack->push($request);
 
         $requestHandler = new RequestHandler($requestStack);
@@ -134,7 +134,7 @@ class HandlerTest extends TestCase
 
         $request->headers->set('accept', RequestHandler::FORMAT_BODY_RAW_JSON);
 
-        $requestStack = new RequestStack();
+        $requestStack = new RequestStack;
         $requestStack->push($request);
 
         $requestHandler = new RequestHandler($requestStack);

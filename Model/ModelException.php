@@ -14,7 +14,7 @@ class ModelException extends \Exception
 {
     protected $errorCode;
 
-    public const MODEL_ERROR = Response::HTTP_INTERNAL_SERVER_ERROR;
+    const MODEL_ERROR = Response::HTTP_INTERNAL_SERVER_ERROR;
 
     public function __construct($message = '', $code = 0, $errorCode = 0)
     {

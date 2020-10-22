@@ -11,41 +11,22 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
-class A
-{
+class A {
     use Cacheable;
 }
 
-class Adapter implements CacheInterface
-{
-    public function get(string $key, callable $callback, float $beta = null, array &$metadata = null)
-    {
-    }
-    public function delete(string $key): bool
-    {
-    }
-    public function getItem(string $key)
-    {
-    }
+class Adapter implements CacheInterface{
+    public function get(string $key, callable $callback, float $beta = null, array &$metadata = null){}
+    public function delete(string $key): bool {}
+    public function getItem(string $key) {}
 }
 
-class Item
-{
-    public function isHit(): bool
-    {
-    }
-    public function get()
-    {
-    }
-    public function set()
-    {
-    }
-    public function expiresAfter()
-    {
-    }
-    public function tag()
-    {
-    }
+class Item {
+    public function isHit(): bool {}
+    public function get() {}
+    public function set() {}
+    public function expiresAfter() {}
+    public function tag() {}
 }
 
 /**
@@ -57,8 +38,8 @@ class CacheableTest extends TestCase
 {
     public function testSetCacheAdapter()
     {
-        $a = new A();
-        $b = new Adapter();
+        $a = new A;
+        $b = new Adapter;
         $this->assertInstanceOf(A::class, $a->setCacheAdapter($b));
         $this->assertInstanceOf(CacheInterface::class, $a->getCacheAdapter());
         $this->assertSame($b, $a->getCacheAdapter());
@@ -66,7 +47,7 @@ class CacheableTest extends TestCase
 
     public function testGetCacheItem()
     {
-        $data = new \StdClass();
+        $data = new \StdClass;
         $data->foo = "bar";
 
         $nonExistingItem = $this->createMock(Item::class);
@@ -81,7 +62,7 @@ class CacheableTest extends TestCase
         $stub->method('getItem')
              ->willReturn($nonExistingItem);
 
-        $a = new A();
+        $a = new A;
         $this->assertInstanceOf(A::class, $a->setCacheAdapter($stub));
         $this->assertFalse($a->getCacheItem("key"));
 
@@ -98,7 +79,7 @@ class CacheableTest extends TestCase
         $adapter->method('getItem')
              ->willReturn($existingItem);
 
-        $aa = new A();
+        $aa = new A;
         $this->assertInstanceOf(A::class, $aa->setCacheAdapter($adapter));
         $this->assertEquals($data, $aa->getCacheItem("key"));
     }
@@ -110,7 +91,7 @@ class CacheableTest extends TestCase
         $adapter->method('getItem')
              ->willReturn(true);
 
-        $a = new A();
+        $a = new A;
         $this->assertInstanceOf(A::class, $a->setCacheAdapter($adapter));
     }
 
@@ -126,7 +107,7 @@ class CacheableTest extends TestCase
             array($item, 'jane.doe', null, '30b1e28233b6d10ebaa3cb54886def34'),
             array(null, 'jane.doe', null, '809d826bc56fc4cdfb126a6ffc2837e9'),
             array([], 'jane.doe', null, '809d826bc56fc4cdfb126a6ffc2837e9'),
-            array(new \StdClass(), 'jane.doe', null, '809d826bc56fc4cdfb126a6ffc2837e9'),
+            array(new \StdClass, 'jane.doe', null, '809d826bc56fc4cdfb126a6ffc2837e9'),
             array([1,2,3], 'jane.doe', null, '3978667c6e4e3260aedd488dd33e4859'),
             array(json_decode('[1,2,3]'), 'jane.doe', null, '3978667c6e4e3260aedd488dd33e4859'),
             array(json_decode('{"foo":"bar"}'), 'jane.doe', null, '809d826bc56fc4cdfb126a6ffc2837e9'),
@@ -147,7 +128,7 @@ class CacheableTest extends TestCase
         $user       = null;
         $request    = null;
 
-        $model = new SimpleModel();
+        $model = new SimpleModel;
         //$model = $this->createMock(ModelInterface::class);
         //$model->method('getName')->willReturn($modelName);
 
@@ -163,7 +144,7 @@ class CacheableTest extends TestCase
             $request->query = $query;
         }
 
-        $a = new A();
+        $a = new A;
         $this->assertSame($expectedKey, $a->getModelCacheKey($model, $item, $user, $request));
     }
 
@@ -180,7 +161,7 @@ class CacheableTest extends TestCase
      */
     public function testDefaultLifetime($ttl)
     {
-        $a = new A();
+        $a = new A;
         $this->assertInstanceOf(A::class, $a->setDefaultLifetime($ttl));
         $this->assertSame($ttl, $a->getDefaultLifetime());
     }
