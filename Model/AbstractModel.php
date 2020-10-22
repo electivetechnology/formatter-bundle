@@ -150,7 +150,7 @@ abstract class AbstractModel implements ModelInterface
         if ($item) {
             if ($item instanceof IdableInterface || method_exists($item, 'getId')) {
                 $tag = $tag . $item->getId();
-            } elseif (is_string($item) || is_numeric($item)) {
+            } elseif (is_string($item) || is_numeric($item)){
                 $tag = $tag . $item;
             }
         }

@@ -50,7 +50,7 @@ trait Sortable
         $query = '';
 
         foreach ($sorts as $sort) {
-            $query .= '&sorts[]=' . $sort;
+            $query .= '&sorts[]='. $sort;
         }
 
         return $query;

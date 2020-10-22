@@ -179,7 +179,7 @@ class FormatterTest extends TestCase
 
     public function setParsersProvider()
     {
-        $jsonParser = new JsonParser();
+        $jsonParser = new JsonParser;
 
         return array(
             array(['application/json' => $jsonParser, 'text/json' => $jsonParser]),
@@ -203,7 +203,7 @@ class FormatterTest extends TestCase
 
     public function addParsersProvider()
     {
-        $jsonParser = new JsonParser();
+        $jsonParser = new JsonParser;
 
         return array(
             array('application/json', $jsonParser),
@@ -228,7 +228,7 @@ class FormatterTest extends TestCase
 
     public function parsersProvider()
     {
-        $jsonParser = new JsonParser();
+        $jsonParser = new JsonParser;
 
         return array(
             array($jsonParser),

@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\HeaderBag;
  */
 class Formatter implements FormatterInterface
 {
-    public const CONTENT_TYPE_HEADER = 'Content-Type';
+    const CONTENT_TYPE_HEADER = 'Content-Type';
 
     /**
      * @var RequestStack
@@ -49,7 +49,7 @@ class Formatter implements FormatterInterface
         $this->headers              = array();
         $this->parsers              = $parsers;
         $this->requestedFormats     = array();
-        $this->defaultParser        = new JsonParser();
+        $this->defaultParser        = new JsonParser;
     }
 
     /**
@@ -74,10 +74,8 @@ class Formatter implements FormatterInterface
         $response->headers->add($headers);
 
         if (empty($this->getRequestedFormats())) {
-            if (
-                !is_null($this->requestStack->getCurrentRequest())
-                && ($this->requestStack->getCurrentRequest()->headers instanceof HeaderBag)
-            ) {
+            if (!is_null($this->requestStack->getCurrentRequest())
+                && ($this->requestStack->getCurrentRequest()->headers instanceof HeaderBag)) {
                 if ($this->requestStack->getCurrentRequest()->headers->get(self::CONTENT_TYPE_HEADER) == '*/*') {
                     $this->addRequestedFormat($this->getDefaultParser()->getDefaultMimeType());
                 } else {

@@ -28,7 +28,7 @@ class Handler implements HandlerInterface
         $this->defaultFormat    = self::FORMAT_BODY_RAW_JSON;
     }
 
-    public const   FORMAT_BODY_FORM_DATA       = 'multipart/form-data',
+    const   FORMAT_BODY_FORM_DATA       = 'multipart/form-data',
             FORMAT_BODY_URLENCODED      = 'application/x-www-form-urlencoded',
             FORMAT_BODY_RAW_JSON        = 'application/json',
             FORMAT_BODY_RAW_TEXT        = 'text/plain',
@@ -125,7 +125,7 @@ class Handler implements HandlerInterface
         $request    = $this->requestStack->getMasterRequest();
         $types      = $request->headers->get('accept', '*/*');
 
-        if ($types != '*/*') {
+        if ($types != '*/*'){
             return self::getFormat($types);
         }
 

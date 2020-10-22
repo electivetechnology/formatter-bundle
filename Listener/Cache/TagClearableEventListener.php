@@ -13,8 +13,6 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
  */
 class TagClearableEventListener implements EventSubscriberInterface
 {
-    public const CACHE_TAG_CLEAR_EVENT = 'onCacheTagEvent';
-
     /**
      * @var TagAwareCacheInterface
      */

@@ -25,7 +25,7 @@ class CollectionTest extends TestCase
      */
     public function testResultsGetandSet($results)
     {
-        $dto = new Collection();
+        $dto = new Collection;
         $this->assertInstanceOf(Collection::class, $dto->setResults($results));
         $this->assertSame($results, $dto->getResults());
     }
@@ -35,7 +35,7 @@ class CollectionTest extends TestCase
         return array(
             array(),
             array(71),
-            array(rand(100, 1000)),
+            array(rand(100,1000)),
         );
     }
 
@@ -47,7 +47,7 @@ class CollectionTest extends TestCase
         if (!empty($totalcount)) {
             $dto = new Collection(null, $totalcount);
         } else {
-            $dto = new Collection();
+            $dto = new Collection;
         }
         
         $this->assertInstanceOf(Collection::class, $dto->setTotalCount($totalcount));

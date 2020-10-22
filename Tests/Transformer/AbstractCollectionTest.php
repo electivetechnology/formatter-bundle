@@ -66,6 +66,5 @@ class AbstractCollectionTest extends TestCase
     }
 }
 
-class SimpleCollectionTransformer extends AbstractCollection
-{
+class SimpleCollectionTransformer extends AbstractCollection{
 }

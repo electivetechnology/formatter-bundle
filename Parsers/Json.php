@@ -11,13 +11,13 @@ use Elective\FormatterBundle\Parsers\ParserException;
  */
 class Json implements ParserInterface
 {
-    public const DEFAULT_MIME_TYPE = 'application/json';
+    const DEFAULT_MIME_TYPE = 'application/json';
 
     /**
      * Returns default mimeType for this parser
      * @return string
      */
-    public static function getDefaultMimeType(): string
+    public static function getDefaultMimeType():string
     {
         return self::DEFAULT_MIME_TYPE;
     }
@@ -85,7 +85,7 @@ class Json implements ParserInterface
     {
         $ret = json_encode($value, $options);
 
-        if (JSON_ERROR_NONE !== json_last_error()) {
+        if (JSON_ERROR_NONE !== json_last_error()){
             self::throwJsonException();
         }
 
@@ -100,7 +100,8 @@ class Json implements ParserInterface
     private static function throwJsonException()
     {
         // Check if the decoding was successful
-        switch (json_last_error()) {
+        switch ( json_last_error() )
+        {
             case JSON_ERROR_DEPTH:
                 $msg = 'The maximum stack depth has been exceeded';
                 break;
@@ -119,7 +120,7 @@ class Json implements ParserInterface
 
             case JSON_ERROR_UTF8:
                 $msg = 'Malformed UTF-8 characters, possibly incorrectly'
-                    . ' encoded';
+                    .' encoded';
                 break;
 
             default:
@@ -128,8 +129,7 @@ class Json implements ParserInterface
         }
 
         throw new ParserException(
-            'Could not process JSON: ' . $msg,
-            ParserException::BAD_REQUEST
+            'Could not process JSON: ' . $msg, ParserException::BAD_REQUEST
         );
     }
 }

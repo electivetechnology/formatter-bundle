@@ -25,7 +25,7 @@ class CacheTaggableTest extends TestCase
      */
     public function testSetGetTags($tags)
     {
-        $cacheTaggableExample = new CacheTaggableExample();
+        $cacheTaggableExample = new CacheTaggableExample;
 
         $this->assertInstanceOf(CacheTaggableExample::class, $cacheTaggableExample->setTags($tags));
         $this->assertSame($tags, $cacheTaggableExample->getTags());
@@ -44,7 +44,7 @@ class CacheTaggableTest extends TestCase
      */
     public function testAddTags($tags)
     {
-        $cacheTaggableExample = new CacheTaggableExample();
+        $cacheTaggableExample = new CacheTaggableExample;
 
         foreach ($tags as $tag) {
             $this->assertInstanceOf(CacheTaggableExample::class, $cacheTaggableExample->addTag($tag));
@@ -54,7 +54,6 @@ class CacheTaggableTest extends TestCase
     }
 }
 
-class CacheTaggableExample
-{
+class CacheTaggableExample {
     use CacheTaggable;
 }
