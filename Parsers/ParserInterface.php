@@ -13,7 +13,7 @@ interface ParserInterface
      * Returns default mimeType for this parser
      * @return string
      */
-    public static function getDefaultMimeType():string;
+    public static function getDefaultMimeType(): string;
 
     /**
      * Parses data and returns the value

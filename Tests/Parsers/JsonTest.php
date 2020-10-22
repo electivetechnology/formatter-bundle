@@ -62,15 +62,15 @@ class JsonTest extends TestCase
         $this->assertEquals($expected, $actual);
 
         // Test that the json decoded object is an array
-        $expected = json_decode($encoded, TRUE);
-        $actual   = Parser::decode($encoded, TRUE);
+        $expected = json_decode($encoded, true);
+        $actual   = Parser::decode($encoded, true);
 
         $this->assertTrue(is_array($actual));
         $this->assertSame($expected, $actual);
 
         // Test the depth option
-        $expected = json_decode($encoded, TRUE, 3);
-        $actual   = Parser::decode($encoded, TRUE, 3);
+        $expected = json_decode($encoded, true, 3);
+        $actual   = Parser::decode($encoded, true, 3);
 
         $this->assertSame($expected, $actual);
     }
@@ -81,6 +81,6 @@ class JsonTest extends TestCase
         $this->expectExceptionCode(ParserException::BAD_REQUEST);
         // Test with a maximum stack set too low
         $encoded  = json_encode($this->data);
-        Parser::decode($encoded, TRUE, 1);
+        Parser::decode($encoded, true, 1);
     }
 }

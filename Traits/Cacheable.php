@@ -146,7 +146,7 @@ trait Cacheable
         if ($item) {
             if ($item instanceof IdableInterface) {
                 $key = $key . $item->getId();
-            } elseif (is_string($item) || is_numeric($item)){
+            } elseif (is_string($item) || is_numeric($item)) {
                 $key = $key . $item;
             } elseif (is_array($item)) {
                 $key = $key . serialize($item);

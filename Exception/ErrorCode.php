@@ -11,18 +11,18 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ErrorCode
 {
-    const MALFORMED_FILTER              = 4000101;
-    const MALFORMED_SORT                = 4000102;
-    const AUTHENTICATION_FAILURE        = 4010001;
-    const AUTHENTICATION_REQUIRED       = 4010002;
-    const USER_NOT_FOUND                = 4040001;
-    const USER_EMAIL_PRIMARY_MISSING    = 4040021;
-    const USER_TOKEN_MALFORMED          = 4030001;
-    const USER_TOKEN_INVALID            = 4030002;
-    const USER_ORGANISATION_MISMATCH    = 4030003;
-    const PASSWORD_RESET_LIMIT_EXCEEDED = 4290001;
-    const PASSWORD_TOKEN_INVALID        = 4040031;
-    const DUPLICATE_ENTRY               = 4090001;
+    public const MALFORMED_FILTER              = 4000101;
+    public const MALFORMED_SORT                = 4000102;
+    public const AUTHENTICATION_FAILURE        = 4010001;
+    public const AUTHENTICATION_REQUIRED       = 4010002;
+    public const USER_NOT_FOUND                = 4040001;
+    public const USER_EMAIL_PRIMARY_MISSING    = 4040021;
+    public const USER_TOKEN_MALFORMED          = 4030001;
+    public const USER_TOKEN_INVALID            = 4030002;
+    public const USER_ORGANISATION_MISMATCH    = 4030003;
+    public const PASSWORD_RESET_LIMIT_EXCEEDED = 4290001;
+    public const PASSWORD_TOKEN_INVALID        = 4040031;
+    public const DUPLICATE_ENTRY               = 4090001;
 
     public static $errorTexts = array(
         4000101 => 'Malformed filter options',
