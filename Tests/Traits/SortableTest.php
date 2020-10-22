@@ -32,7 +32,7 @@ class SortableTest extends TestCase
      */
     public function testTestGetSortsWithoutHandler($validSorts, $expected)
     {
-        $sortable = new SimpleSortableExample;
+        $sortable = new SimpleSortableExample();
 
         $this->assertTrue(is_array($sortable->getSorts($validSorts)));
         $this->assertEquals($expected, $sortable->getSorts($validSorts));
@@ -98,6 +98,7 @@ class SortableTest extends TestCase
     }
 }
 
-class SimpleSortableExample {
+class SimpleSortableExample
+{
     use Sortable;
 }
