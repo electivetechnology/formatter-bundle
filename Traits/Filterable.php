@@ -52,8 +52,8 @@ trait Filterable
             foreach ($filters as $namespace => $filter) {
                 $logic = false;
 
-                if (is_array($filter)){
-                    if (array_key_exists('logic', $filter)){
+                if (is_array($filter)) {
+                    if (array_key_exists('logic', $filter)) {
                         $logic = $filter['logic'];
                         unset($filter['logic']);
                     }
@@ -86,7 +86,7 @@ trait Filterable
         $query = '';
 
         foreach ($filters as $filter) {
-            $query .= '&filters[]='. urlencode($filter);
+            $query .= '&filters[]=' . urlencode($filter);
         }
 
         return $query;

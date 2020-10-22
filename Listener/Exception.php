@@ -83,7 +83,7 @@ class Exception implements EventSubscriberInterface
     {
         // Return symfony flavour exception in dev mode for all system exceptions
         if ($this->getEnv() != 'dev' || $event->getThrowable() instanceof ApiException) {
-            $ret            = new \StdClass;
+            $ret            = new \StdClass();
             $ret->message   = $event->getThrowable()->getMessage();
             $ret->code      = $event->getThrowable()->getCode();
 

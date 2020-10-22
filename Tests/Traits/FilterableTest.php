@@ -32,7 +32,7 @@ class FilterableTest extends TestCase
      */
     public function testGetFiltersWithoutHandler($validFilters, $expected)
     {
-        $filterable = new FilterableExample;
+        $filterable = new FilterableExample();
 
         $this->assertTrue(is_array($filterable->getFilters($validFilters)));
         $this->assertEquals($expected, $filterable->getFilters($validFilters));
@@ -105,6 +105,7 @@ class FilterableTest extends TestCase
     }
 }
 
-class FilterableExample {
+class FilterableExample
+{
     use Filterable;
 }
