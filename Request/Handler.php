@@ -46,6 +46,7 @@ class Handler implements HandlerInterface
         self::FORMAT_BODY_RAW_JSON,
         self::FORMAT_BODY_RAW_TEXT,
         self::FORMAT_BODY_RAW_CSV,
+        self::FORMAT_BODY_RAW_HTML,
     );
 
     /**
@@ -54,12 +55,12 @@ class Handler implements HandlerInterface
      * @static array
      */
     public static $mimeTypeMapper = array(
-        'multipart/form-data'                               => self::FORMAT_BODY_FORM_DATA,
-        'application/x-www-form-urlencoded'                 => self::FORMAT_BODY_URLENCODED,
-        'application/json'                                  => self::FORMAT_BODY_RAW_JSON,
-        'text/plain'                                        => self::FORMAT_BODY_RAW_TEXT,
-        'text/csv'                                          => self::FORMAT_BODY_RAW_CSV,
-        'text/html,application/xhtml+xml,application/xml'   => self::FORMAT_BODY_RAW_HTML,
+        'multipart/form-data'               => self::FORMAT_BODY_FORM_DATA,
+        'application/x-www-form-urlencoded' => self::FORMAT_BODY_URLENCODED,
+        'application/json'                  => self::FORMAT_BODY_RAW_JSON,
+        'text/plain'                        => self::FORMAT_BODY_RAW_TEXT,
+        'text/csv'                          => self::FORMAT_BODY_RAW_CSV,
+        'text/html'                         => self::FORMAT_BODY_RAW_HTML,
     );
 
     /**
@@ -140,14 +141,18 @@ class Handler implements HandlerInterface
      */
     public static function getFormat($mimeTypes)
     {
-        $canonicalMimeType = $mimeTypes;
+        $types = explode(',', $mimeTypes);
 
-        if (false !== $pos = strpos($mimeTypes, ';')) {
-            $canonicalMimeType = substr($mimeTypes, 0, $pos);
-        }
+        foreach ($types as $type) {
+            if (false !== $pos = strpos($type, ';')) {
+                $canonicalMimeType = substr($type, 0, $pos);
+            } else {
+                $canonicalMimeType = $type;
+            }
 
-        if (array_key_exists($canonicalMimeType, self::$mimeTypeMapper)) {
-            return $canonicalMimeType;
+            if (array_key_exists($canonicalMimeType, self::$mimeTypeMapper)) {
+                return $canonicalMimeType;
+            }
         }
 
         return null;
