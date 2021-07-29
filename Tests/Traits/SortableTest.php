@@ -4,6 +4,7 @@ namespace Elective\FormatterBundle\Tests\Traits;
 
 use Elective\FormatterBundle\Traits\Sortable;
 use Elective\FormatterBundle\Request\Handler;
+use Elective\FormatterBundle\Exception\ApiException;
 use Ucc\Data\Types\Pseudo\SortType;
 use PHPUnit\Framework\TestCase;
 
@@ -31,7 +32,7 @@ class SortableTest extends TestCase
      */
     public function testTestGetSortsWithoutHandler($validSorts, $expected)
     {
-        $sortable = new SimpleSortableExample;
+        $sortable = new SimpleSortableExample();
 
         $this->assertTrue(is_array($sortable->getSorts($validSorts)));
         $this->assertEquals($expected, $sortable->getSorts($validSorts));
@@ -85,10 +86,10 @@ class SortableTest extends TestCase
 
     /**
      * @dataProvider invalidSortsProvider
-     * @expectedException Elective\FormatterBundle\Exception\ApiException
      */
     public function testGetSortsWithHandlerFail($requested, $validSorts)
     {
+        $this->expectException(ApiException::class);
         $sortable = new SimpleSortableExample();
         $sortable->handler = $this->createMock(Handler::class);
         $sortable->handler->method('getSorts')->willReturn($requested);
@@ -97,6 +98,7 @@ class SortableTest extends TestCase
     }
 }
 
-class SimpleSortableExample {
+class SimpleSortableExample
+{
     use Sortable;
 }

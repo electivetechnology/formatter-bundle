@@ -13,5 +13,5 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class DuplicateEntryException extends ModelException
 {
-    const MODEL_ERROR = Response::HTTP_CONFLICT;
+    public const MODEL_ERROR = Response::HTTP_CONFLICT;
 }

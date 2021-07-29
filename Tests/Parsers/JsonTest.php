@@ -3,6 +3,7 @@
 namespace Elective\FormatterBundle\Tests\Parsers;
 
 use Elective\FormatterBundle\Parsers\Json as Parser;
+use Elective\FormatterBundle\Parsers\ParserException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,7 +16,7 @@ class JsonTest extends TestCase
 {
     private $data;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->data           = new \StdClass();
         $this->data->name     = 'Test Obj';
@@ -61,27 +62,25 @@ class JsonTest extends TestCase
         $this->assertEquals($expected, $actual);
 
         // Test that the json decoded object is an array
-        $expected = json_decode($encoded, TRUE);
-        $actual   = Parser::decode($encoded, TRUE);
+        $expected = json_decode($encoded, true);
+        $actual   = Parser::decode($encoded, true);
 
         $this->assertTrue(is_array($actual));
         $this->assertSame($expected, $actual);
 
         // Test the depth option
-        $expected = json_decode($encoded, TRUE, 3);
-        $actual   = Parser::decode($encoded, TRUE, 3);
+        $expected = json_decode($encoded, true, 3);
+        $actual   = Parser::decode($encoded, true, 3);
 
         $this->assertSame($expected, $actual);
     }
 
-    /**
-      * @expectedException     Elective\FormatterBundle\Parsers\ParserException
-      * @expectedExceptionCode Elective\FormatterBundle\Parsers\ParserException::BAD_REQUEST
-      */
     public function testJsonDecodeFail()
     {
+        $this->expectException(ParserException::class);
+        $this->expectExceptionCode(ParserException::BAD_REQUEST);
         // Test with a maximum stack set too low
         $encoded  = json_encode($this->data);
-        Parser::decode($encoded, TRUE, 1);
+        Parser::decode($encoded, true, 1);
     }
 }

@@ -11,13 +11,13 @@ use Elective\FormatterBundle\Parsers\ParserException;
  */
 class Csv implements ParserInterface
 {
-    const DEFAULT_MIME_TYPE = 'text/csv';
+    public const DEFAULT_MIME_TYPE = 'text/csv';
 
     /**
      * Returns default mimeType for this parser
      * @return string
      */
-    public static function getDefaultMimeType():string
+    public static function getDefaultMimeType(): string
     {
         return self::DEFAULT_MIME_TYPE;
     }

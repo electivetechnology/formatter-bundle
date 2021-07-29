@@ -17,10 +17,10 @@ matrix:
     fast_finish: true
     include:
           # Test the latest stable release
-        - php: 7.1
         - php: 7.2
           env: COVERAGE=true PHPUNIT_FLAGS="-v --coverage-text"
         - php: 7.3
+        - php: 7.4
 
     allow_failures:
           # Dev-master is allowed to fail.
@@ -41,4 +41,4 @@ script:
     - composer validate --strict --no-check-lock
     # simple-phpunit is the PHPUnit wrapper provided by the PHPUnit Bridge component and
     # it helps with testing legacy code and deprecations (composer require symfony/phpunit-bridge)
-    - ./vendor/bin/phpunit $PHPUNIT_FLAGS
+    - ./vendor/bin/simple-phpunit $PHPUNIT_FLAGS

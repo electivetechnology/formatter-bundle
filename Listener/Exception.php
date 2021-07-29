@@ -4,7 +4,7 @@ namespace Elective\FormatterBundle\Listener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Elective\FormatterBundle\Response\FormatterInterface;
 use Elective\FormatterBundle\Exception\ApiException;
@@ -79,11 +79,11 @@ class Exception implements EventSubscriberInterface
         return $this;
     }
 
-    public function onKernelException(GetResponseForExceptionEvent $event)
+    public function onKernelException(ExceptionEvent $event)
     {
         // Return symfony flavour exception in dev mode for all system exceptions
         if ($this->getEnv() != 'dev' || $event->getThrowable() instanceof ApiException) {
-            $ret            = new \StdClass;
+            $ret            = new \StdClass();
             $ret->message   = $event->getThrowable()->getMessage();
             $ret->code      = $event->getThrowable()->getCode();
 

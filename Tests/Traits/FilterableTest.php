@@ -4,6 +4,7 @@ namespace Elective\FormatterBundle\Tests\Traits;
 
 use Elective\FormatterBundle\Traits\Filterable;
 use Elective\FormatterBundle\Request\Handler;
+use Elective\FormatterBundle\Exception\ApiException;
 use Ucc\Data\Types\Pseudo\FilterType;
 use PHPUnit\Framework\TestCase;
 
@@ -31,7 +32,7 @@ class FilterableTest extends TestCase
      */
     public function testGetFiltersWithoutHandler($validFilters, $expected)
     {
-        $filterable = new FilterableExample;
+        $filterable = new FilterableExample();
 
         $this->assertTrue(is_array($filterable->getFilters($validFilters)));
         $this->assertEquals($expected, $filterable->getFilters($validFilters));
@@ -91,11 +92,10 @@ class FilterableTest extends TestCase
 
     /**
      * @dataProvider invalidFiltersProvider
-     * @expectedException Elective\FormatterBundle\Exception\ApiException
      */
     public function testGetFiltersWithHandlerFail($requested, $validFilters)
     {
-
+        $this->expectException(ApiException::class);
 
         $filterable = new FilterableExample();
         $filterable->handler = $this->createMock(Handler::class);
@@ -105,6 +105,7 @@ class FilterableTest extends TestCase
     }
 }
 
-class FilterableExample {
+class FilterableExample
+{
     use Filterable;
 }

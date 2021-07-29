@@ -24,12 +24,10 @@ class OutputableTest extends TestCase
         $this->assertSame($formatter, $testClass->getFormatter());
     }
 
-    /**
-     * @expectedException \TypeError
-     */
     public function testSetFormatterFail()
     {
-        $formatter = new \StdClass;
+        $this->expectException(\TypeError::class);
+        $formatter = new \StdClass();
         $testClass = new OutputableExample();
 
         $this->assertInstanceOf(OutputableExample::class, $testClass->setFormatter($formatter));
@@ -44,28 +42,31 @@ class OutputableTest extends TestCase
         $this->assertSame($handler, $testClass->getHandler());
     }
 
-    /**
-     * @expectedException \TypeError
-     */
     public function testSetHandlerFail()
     {
-        $handler = new \StdClass;
+        $this->expectException(\TypeError::class);
+        $handler = new \StdClass();
         $testClass = new OutputableExample();
 
         $this->assertInstanceOf(OutputableExample::class, $testClass->setHandler($handler));
     }
 }
 
-class OutputableExample {
+class OutputableExample
+{
     use Outputable;
 }
 
-class OutputableFormatter implements FormatterInterface{
-    public function render($data = null, $status = Response::HTTP_OK, $headers = array()): Response {
-
+class OutputableFormatter implements FormatterInterface
+{
+    public function render($data = null, $status = Response::HTTP_OK, $headers = array()): Response
+    {
     }
 }
 
-class OutputableHandler implements HandlerInterface{
-    public function getPostData(): \StdClass {}
+class OutputableHandler implements HandlerInterface
+{
+    public function getPostData(): \StdClass
+    {
+    }
 }
