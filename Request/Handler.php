@@ -199,4 +199,16 @@ class Handler implements HandlerInterface
 
         return $request->query->get('sorts', array());
     }
+
+    /**
+     * Gets display parameter from request
+     *
+     * @return  array|null
+     */
+    public function getDisplay()
+    {
+        $request = $this->requestStack->getMasterRequest();
+
+        return $request->query->get('display', array());
+    }
 }
