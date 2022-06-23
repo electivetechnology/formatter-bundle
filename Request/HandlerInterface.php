@@ -15,4 +15,5 @@ interface HandlerInterface
      * Returns data submitted via POST Request
      */
     public function getPostData(): \StdClass;
+    public function getRequestedFormat(): string;
 }
