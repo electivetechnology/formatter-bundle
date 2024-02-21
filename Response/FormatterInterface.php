@@ -12,4 +12,5 @@ use Symfony\Component\HttpFoundation\Response;
 interface FormatterInterface
 {
     public function render($data = null, $status = Response::HTTP_OK, $headers = array()): Response;
+    public function setHeaders(array $headers);
 }
