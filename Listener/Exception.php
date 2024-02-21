@@ -89,12 +89,13 @@ class Exception implements EventSubscriberInterface
             $ret->message   = $exception->getMessage();
             $ret->code      = $exception->getCode();
 
-            if ($event instanceof HttpExceptionInterface) {
-                $statusCode = $event->getStatusCode();
+            // HttpExceptionInterface is a special type of exception that
+            // holds status code and header details
+            if ($exception instanceof HttpExceptionInterface) {
+                $statusCode = $exception->getStatusCode();
             } else {
                 $statusCode = JsonResponse::HTTP_INTERNAL_SERVER_ERROR;
             }
-
 
             if ($exception instanceof ApiException) {
                 $this->formatter->setHeaders($exception->getHeaders());
