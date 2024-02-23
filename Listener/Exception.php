@@ -4,10 +4,11 @@ namespace Elective\FormatterBundle\Listener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Elective\FormatterBundle\Response\FormatterInterface;
 use Elective\FormatterBundle\Exception\ApiException;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 /**
  * Elective\FormatterBundle\Listener\Exception
@@ -79,23 +80,25 @@ class Exception implements EventSubscriberInterface
         return $this;
     }
 
-    public function onKernelException(GetResponseForExceptionEvent $event)
+    public function onKernelException(ExceptionEvent $event)
     {
+        $exception = $event->getThrowable();
         // Return symfony flavour exception in dev mode for all system exceptions
-        if ($this->getEnv() != 'dev' || $event->getThrowable() instanceof ApiException) {
+        if ($this->getEnv() != 'dev' || $exception instanceof ApiException) {
             $ret            = new \StdClass;
-            $ret->message   = $event->getThrowable()->getMessage();
-            $ret->code      = $event->getThrowable()->getCode();
+            $ret->message   = $exception->getMessage();
+            $ret->code      = $exception->getCode();
 
-            // Check if the exception is HTTP Exception type and overwrite defaults
-            if (method_exists($event->getThrowable(), "getStatusCode")) {
-                $statusCode = $event->getThrowable()->getStatusCode();
+            // HttpExceptionInterface is a special type of exception that
+            // holds status code and header details
+            if ($exception instanceof HttpExceptionInterface) {
+                $statusCode = $exception->getStatusCode();
             } else {
                 $statusCode = JsonResponse::HTTP_INTERNAL_SERVER_ERROR;
             }
 
-            if ($event->getThrowable() instanceof ApiException) {
-                $this->formatter->setHeaders($event->getThrowable()->getHeaders());
+            if ($exception instanceof ApiException) {
+                $this->formatter->setHeaders($exception->getHeaders());
             }
 
             $response = $this->formatter->render($ret, $statusCode);
